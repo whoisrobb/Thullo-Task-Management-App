@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,700&display=swap");
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  overflow-x: hidden;
+  background: #191919;
+  font-family: "Nunito Sans";
+}
+
+#app {
+  display: flex;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+.sidebar {
+  background: #202020;
+  height: 100vh;
+  padding: 1rem;
+}
+.sidebar a {
+  color: #9B9B9B;
+}
+.sidebar .workspace {
+  display: flex;
+  align-items: center;
+}
+.sidebar .workspace span {
+  background: #D9D9D9;
+  color: #202020;
+  height: 3rem;
+  aspect-ratio: 1;
+  font-size: 2rem;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sidebar nav {
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar nav a {
+  padding: 0.5rem 1rem;
+  text-transform: capitalize;
+}
+.sidebar nav a:hover {
+  background: rgba(217, 217, 217, 0.2);
+  color: white;
+}
+.sidebar nav .uil {
+  margin-right: 0.5rem;
+}
+.sidebar .boards {
+  color: #9B9B9B;
+}
+.sidebar .boards .actions {
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+}
+.sidebar .boards .actions button {
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+.sidebar .boards .actions button .uil {
+  color: #9B9B9B;
+  font-size: 1.2rem;
+}/*# sourceMappingURL=App.css.map */

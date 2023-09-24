@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,700&display=swap');
+
+$sans: 'Nunito Sans';
+
+$black: #191919;
+$dark: #202020;
+$light: #9B9B9B;
+$white: #D9D9D9;
+
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    overflow-x: hidden;
+    background: $black;
+    font-family: $sans;
+}
+
+
+#app {
+    display: flex;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+.sidebar {
+    background: $dark;
+    // position: fixed;
+    // width: 15rem;
+    height: 100vh;
+    padding: 1rem;
+
+    a {
+        color: $light;
+    }
+
+    .workspace {
+        display: flex;
+        align-items: center;
+
+        span {
+            background: $white;
+            color: $dark;
+            height: 3rem;
+            aspect-ratio: 1;
+            font-size: 2rem;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    nav {
+        padding: 2rem 0;
+        display: flex;
+        flex-direction: column;
+
+        a {
+            padding: .5rem 1rem;
+            text-transform: capitalize;
+
+            &:hover {
+                background: rgba($white, .2);
+                color: white;
+            }
+        }
+
+        .uil {
+            margin-right: 0.5rem;
+        }
+    }
+
+    .boards {
+        color: $light;
+        
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-self: center;
+
+            button {
+                padding: 0;
+                border: none;
+                background: transparent;
+
+                .uil {
+                    color: $light;
+                    font-size: 1.2rem;
+                }
+            }
+        }
+    }
+}
