@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import multer from 'multer'
 import authRoutes from './routes/users.js'
+import actionRoutes from './routes/action.js'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
 
@@ -23,6 +24,7 @@ app.use(express.json())
 
 /* ROUTES */
 app.use('/auth', authRoutes)
+app.use('/board', actionRoutes)
 
 
 /* MONGOOSE SETUP */

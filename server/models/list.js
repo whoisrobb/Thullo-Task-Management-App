@@ -4,7 +4,7 @@ import mongoose from "mongoose"
 const listSchema = new mongoose.Schema({
     title: String,
     position: Number,
-    board_id: {
+    boardId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Board'
     },

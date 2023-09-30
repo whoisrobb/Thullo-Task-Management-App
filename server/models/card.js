@@ -30,11 +30,11 @@ const cardSchema = new mongoose.Schema({
     description: String,
     position: Number,
     checklists: [checklistSchema],
-    team_id: {
+    teamId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Team'
     },
-    list_id: {
+    listId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'List'
     },
@@ -42,7 +42,7 @@ const cardSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Label'
     }],
-    created_by: {
+    createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },

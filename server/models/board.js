@@ -7,7 +7,7 @@ const boardSchema = new mongoose.Schema({
     required: true
   },
   description: String,
-  created_by: {
+  createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
@@ -23,4 +23,4 @@ const boardSchema = new mongoose.Schema({
 
 const Board = mongoose.model('Board', boardSchema)
 
-module.exports = Board
+export default Board
