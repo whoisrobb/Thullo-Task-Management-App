@@ -10,6 +10,7 @@ import Workspace from './pages/Workspace'
 import Board from './pages/Board'
 import CardDetails from './components/CardDetails'
 import WorkspaceLayout from './components/WorkspaceLayout'
+import CardProvider from './components/CardProvider'
 
 function App() {
   const [userId, setUserId] = useState(null)
@@ -24,7 +25,7 @@ function App() {
   }, [])
 
   return (
-    <>
+    <CardProvider>
       <Routes>
         <Route path='/'>
           <Route index element={<Home />} />
@@ -39,7 +40,7 @@ function App() {
         </Route>
 
       </Routes>
-    </>
+    </CardProvider>
   )
 }
 

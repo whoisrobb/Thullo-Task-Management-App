@@ -1,5 +1,5 @@
 import express from 'express'
-import { createBoard, createList, getBoards, getCards, getLists, getSingleBoard } from '../controllers/action.js'
+import { createBoard, createCard, createList, getBoards, getCards, getLists, getSingleBoard } from '../controllers/action.js'
 
 const router = express.Router()
 
@@ -25,11 +25,11 @@ router.post('/lists/create', createList)
 
 
 /* GET CARDS IN LIST */
-router.get('/cards/:listId', getCards)
+router.get('/cards/:cardId', getCards)
 
 
 /* CREATE CARDS IN LISTS */
-router.post('/cards/create', createList)
+router.post('/cards/create', createCard)
 
 
 export default router

@@ -3,15 +3,19 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { serverUrl } from '../utils/urls'
 import CardDetails from '../components/CardDetails'
+import { useCard } from '../components/CardProvider'
 
 const Board = () => {
+    const { setToCard, toggleCard } = useCard()
     const { boardId } = useParams()
 
     const [listTitle, setListTitle] = useState('')
+    const [cardTitle, setCardTitle] = useState('')
     const [board, setBoard] = useState(null)
     const [lists, setLists] = useState(null)
     const [create, setCreateList] = useState(false)
-    const [listMenu, setListMenu] = useState(false)
+    const [listMenu, setListMenu] = useState({})
+    const [cardMenu, setCardMenu] = useState({})
 
     useEffect(() => {
         fetchBoard()
@@ -35,22 +39,12 @@ const Board = () => {
             const response = await fetch(`${serverUrl}/board/lists/${boardId}`)
             const data = await response.json()
             setLists(data)
-            // console.log(data)
         } catch (err) {
             console.error(err)
         }
     }
 
-    // const fetchCards = async () => {
-    //     try {
-    //         const response = await fetch(`${serverUrl}/board/lists/${boardId}`)
-    //         const data = await response.json()
-    //         setLists(data)
-    //         // console.log(data)
-    //     } catch (err) {
-    //         console.error(err)
-    //     }
-    // }
+    // console.log(lists)
 
     const createList = async () => {
         try {
@@ -66,6 +60,10 @@ const Board = () => {
         }
     }
 
+    useEffect(() => {
+        console.log(cardMenu)
+    }, [cardMenu])
+
     const createCard = async () => {
         try {
             const response = await fetch(`${serverUrl}/board/cards/create`, {
@@ -73,7 +71,7 @@ const Board = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ title: cardTitle, description: cardDescription, listId, createdBy })
+                body: JSON.stringify({ title: cardTitle, listId: cardMenu })
             })
         } catch (err) {
             console.error(err)
@@ -92,10 +90,21 @@ const Board = () => {
                         <div className="list-header">
                             <div className="list-content">
                                 <p>{list.title}</p>
-                                <button className='list-menu' onClick={() => setListMenu(prevValue => !prevValue)}>
-                                    <i className="uil uil-ellipsis-v"></i>
-                                </button>
-                                {  listMenu &&
+                                <div>
+                                    
+                                    <button className='card-menu' onClick={() => {
+                                            setCardMenu(cardMenu === list._id ? null : list._id);
+                                        }}>
+                                            <i className="uil uil-plus"></i>
+                                    </button>
+                                    
+                                    <button className='card-menu' onClick={() => {
+                                            setListMenu(listMenu === list._id ? null : list._id);
+                                        }}>
+                                            <i className="uil uil-ellipsis-v"></i>
+                                    </button>
+                                </div>
+                                {  listMenu === list._id &&
                                     <div className="list-menu-actions">
                                         <div className="list-menu-head">
                                             <p>List actions</p>
@@ -104,7 +113,35 @@ const Board = () => {
                                     </div>
                                 }
                             </div>
+                                {  cardMenu === list._id &&
+                                    <div className="card-menu-actions">
+                                        <form onSubmit={createCard}>
+                                            <input
+                                                type="text"
+                                                name="cardTitle"
+                                                placeholder='Enter title for the card'
+                                                value={cardTitle}
+                                                onChange={(e) => setCardTitle(e.target.value)}
+                                            />
+                                            <button type="submit">create card</button>
+                                        </form>
+                                    </div>
+                                }
                         </div>
+                            <div className="cards">
+                                {
+                                    list.cards.map((card) => (
+                                        <div className='card' key={card._id} onClick={() => {
+                                            setToCard(card._id);
+                                            toggleCard();
+                                            }}
+                                        >
+                                            <h3>{card.title}</h3>
+                                            {card.description && <p>{card.description}</p>}
+                                        </div>
+                                    ))
+                                }
+                            </div>
                     </div>
             ))}
             <div className="list">
@@ -129,6 +166,7 @@ const Board = () => {
                     }
                 </div>
             </div>
+            <button onClick={toggleCard}>toggle</button>
             <CardDetails />
         </div>
     </section>

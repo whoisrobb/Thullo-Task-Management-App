@@ -42,10 +42,20 @@ export const getSingleBoard = async (req, res) => {
 export const getLists = async (req, res) => {
     try {
         const { boardId } = req.params
-        res.status(200).json( await List.find({ boardId: boardId }) )
+        res.status(200).json( await List.find({ boardId: boardId }).populate('cards').exec() )
     } catch (err) {
         res.status(400).json({ message: err.message })
     }
+    // try {
+    //     const listsWithCards = await List.find()
+    //       .populate('cards') // Populate the 'cards' field in the List model
+    //       .exec();
+    
+    //     res.json(listsWithCards);
+    //   } catch (error) {
+    //     console.error(error);
+    //     res.status(500).json({ error: 'Server error' });
+    //   }
 }
 
 
@@ -62,11 +72,11 @@ export const createList = async (req, res) => {
 }
 
 
-/* GET CARDS FOR LISTS */
+/* GET CARDS */
 export const getCards = async (req, res) => {
     try {
-        const { listId } = req.params
-        res.status(200).json( await Card.find({ listId: listId }) )
+        const { cardId } = req.params
+        res.status(200).json( await Card.findById(cardId))
     } catch (err) {
         res.status(400).json({ message: err.message })
     }
@@ -76,10 +86,19 @@ export const getCards = async (req, res) => {
 /* CREATE CARDS FOR LIST */
 export const createCard = async (req, res) => {
     try {
-        const { title, description, listId, createdBy } = req.body
-        const card = new Card({ title, description, listId, createdBy })
-        const savedCard = await card.save()
-        res.status(201).json(savedCard)
+        const { title, createdBy, listId } = req.body
+        
+        const card = new Card({ title, createdBy })
+        await card.save()
+
+        // Add the card to the list's 'cards' array
+        const list = await List.findByIdAndUpdate(
+            listId,
+            { $push: { cards: card._id } },
+            { new: true }
+        )
+
+        res.status(200).json({ card, list })
     } catch (err) {
         res.status(400).json({ message: err.message })
     }

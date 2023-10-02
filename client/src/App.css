@@ -200,7 +200,10 @@ button {
   width: 15rem;
   left: 100%;
 }
-#boards .actions .list .list-header button.create-list, #boards .actions .list .list-header button.list-menu {
+#boards .actions .list .list-header .list-menu-actions, #boards .actions .list .list-header .card-menu-actions {
+  background: red;
+}
+#boards .actions .list .list-header button.create-list, #boards .actions .list .list-header button.list-menu, #boards .actions .list .list-header button.card-menu {
   color: #9B9B9B;
   margin: 0;
   padding: 0;
@@ -224,6 +227,11 @@ button {
   border: none;
   text-transform: capitalize;
   font-weight: 700;
+}
+#boards .actions .list .cards .card {
+  cursor: pointer;
+  background: #202020;
+  margin: 0.2rem 0;
 }
 
 .card-details {
