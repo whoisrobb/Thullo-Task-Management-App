@@ -132,12 +132,14 @@ const Board = () => {
                                 {
                                     list.cards.map((card) => (
                                         <div className='card' key={card._id} onClick={() => {
-                                            setToCard(card._id);
+                                            setToCard(card);
                                             toggleCard();
                                             }}
                                         >
                                             <h3>{card.title}</h3>
-                                            {card.description && <p>{card.description}</p>}
+                                            {/* {card.description && <p>{card.description}</p>} */}
+                                            {card.description && <div className='content' dangerouslySetInnerHTML={{ __html: card.description }} />}
+                                            
                                         </div>
                                     ))
                                 }
@@ -166,7 +168,7 @@ const Board = () => {
                     }
                 </div>
             </div>
-            <button onClick={toggleCard}>toggle</button>
+            {/* <button onClick={toggleCard}>toggle</button> */}
             <CardDetails />
         </div>
     </section>

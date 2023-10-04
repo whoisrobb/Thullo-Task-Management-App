@@ -8,13 +8,14 @@ export const useCard = () => {
 
 const CardProvider = ({ children }) => {
     const [cardItem, setCardItem] = useState(
+        // JSON.parse(localStorage.getItem('activeCard')) || []
         localStorage.getItem('activeCard') || []
     )
 
     const [toggle, setToggle] = useState(false)
 
     useEffect(() => {
-        localStorage.setItem('activeCard', cardItem)
+        localStorage.setItem('activeCard', JSON.stringify(cardItem))
     }, [cardItem])
 
     const toggleCard = () => {

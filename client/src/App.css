@@ -24,6 +24,10 @@ h1, h2, h3, h4, h5, h6, p {
   padding: 0;
 }
 
+.uil {
+  color: #9B9B9B;
+}
+
 button {
   cursor: pointer;
 }
@@ -243,4 +247,28 @@ button {
   left: 50%;
   transition: 200ms ease-in-out;
   transform-origin: right;
+  padding: 1rem;
+}
+.card-details header.head {
+  justify-content: space-between;
+}
+.card-details .head {
+  display: flex;
+  align-items: center;
+}
+.card-details .head .uil {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+.card-details .description button.set-active {
+  width: 100%;
+  padding: 1rem;
+  font-family: "Nunito Sans";
+  font-size: 1rem;
+  color: #9B9B9B;
+  background: rgba(155, 155, 155, 0.1);
+  border: none;
+}
+.card-details .description button.set-active:hover {
+  background: rgba(155, 155, 155, 0.3);
 }/*# sourceMappingURL=App.css.map */

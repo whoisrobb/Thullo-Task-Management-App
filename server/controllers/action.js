@@ -103,3 +103,64 @@ export const createCard = async (req, res) => {
         res.status(400).json({ message: err.message })
     }
 }
+
+
+/* PATCH CARDS FOR LIST */
+export const patchCard = async (req, res) => {
+    try {
+        const { title, description } = req.body
+        const { cardId } = req.params
+        
+        const card = await Card.findById(cardId)
+        
+        if (!card) {
+            res.status(404).json({ message: 'Card not found!' })
+        }
+
+        await card.updateOne({ title, description })
+
+        res.status(201).json(card)
+    } catch (err) {
+        res.status(400).json({ message: err.message })
+    }
+}
+
+
+/* UPDATE CARDS FOR LIST */
+export const putCard = async (req, res) => {
+    try {
+        const updatedCard = await Card.findByIdAndUpdate(
+            req.params.cardId,
+            req.body, {
+                new: true
+            }
+        )
+
+        if (!updatedCard) {
+            return res.status(404).json({ error: 'Card not found!' });
+        }
+
+        res.status(201).json(updatedCard)
+    } catch (error) {
+        res.status(500).json({ message: err.message })
+    }
+}
+  
+
+
+// title: String,
+// description: String,
+// position: Number,
+// checklists: [checklistSchema],
+// teamId: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'Team'
+// },
+// listId: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'List'
+// },
+// labels: [{
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'Label'
+// }],

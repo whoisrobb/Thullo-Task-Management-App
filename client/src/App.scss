@@ -35,6 +35,11 @@ h1, h2, h3, h4, h5, h6, p {
     padding: 0;
 }
 
+.uil {
+    color: $light;
+    // font-size: 1.2rem;
+}
+
 button {
     cursor: pointer;
 }
@@ -305,4 +310,36 @@ button {
     left: 50%;
     transition: 200ms ease-in-out;
     transform-origin: right;
+    padding: 1rem;
+
+    header.head {
+        justify-content: space-between;
+    }
+
+    .head {
+        display: flex;
+        align-items: center;
+
+        .uil {
+            font-size: 1.2rem;
+            margin-right: .5rem;
+        }
+    }
+
+    .description {
+
+        button.set-active {
+            width: 100%;
+            padding: 1rem;
+            font-family: $sans;
+            font-size: 1rem;
+            color: $light;
+            background: rgba($light, .1);
+            border: none;
+
+            &:hover {
+                background: rgba($light, .3);
+            }
+        }
+    }
 }

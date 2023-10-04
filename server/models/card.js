@@ -2,16 +2,16 @@ import mongoose from "mongoose"
 
 
 // Create a schema for checklist items
-const checklistItemSchema = new mongoose.Schema({
+const checklistSchema = new mongoose.Schema({
     text: String,
-    is_completed: Boolean,
+    checked: Boolean,
 })
   
 // Create a schema for checklists
-const checklistSchema = new mongoose.Schema({
-    title: String,
-    items: [checklistItemSchema],
-})
+// const checklistSchema = new mongoose.Schema({
+//     title: String,
+//     items: [checklistItemSchema],
+// })
 
 
 // Create a schema for labels
