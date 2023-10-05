@@ -1,3 +1,4 @@
+import jwtDecode from 'jwt-decode'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
 const CardContext = createContext()
@@ -8,11 +9,24 @@ export const useCard = () => {
 
 const CardProvider = ({ children }) => {
     const [cardItem, setCardItem] = useState(
-        // JSON.parse(localStorage.getItem('activeCard')) || []
         localStorage.getItem('activeCard') || []
     )
 
+    const [access, setAccess] = useState(null)
+
+    // let access
+
     const [toggle, setToggle] = useState(false)
+
+    useEffect(() => {
+        const token = localStorage.getItem('accessToken')
+
+        if (token) {
+            const decoded = jwtDecode(token)
+            setAccess(decoded)
+        }
+
+    }, [])
 
     useEffect(() => {
         localStorage.setItem('activeCard', JSON.stringify(cardItem))
@@ -27,7 +41,7 @@ const CardProvider = ({ children }) => {
     }
 
   return (
-    <CardContext.Provider value={{ cardItem, toggle, toggleCard, setToCard }}>
+    <CardContext.Provider value={{ access, cardItem, toggle, toggleCard, setToCard }}>
         { children }
     </CardContext.Provider>
   )

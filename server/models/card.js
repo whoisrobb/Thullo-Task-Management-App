@@ -6,12 +6,6 @@ const checklistSchema = new mongoose.Schema({
     text: String,
     checked: Boolean,
 })
-  
-// Create a schema for checklists
-// const checklistSchema = new mongoose.Schema({
-//     title: String,
-//     items: [checklistItemSchema],
-// })
 
 
 // Create a schema for labels
@@ -38,10 +32,7 @@ const cardSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'List'
     },
-    labels: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Label'
-    }],
+    labels: [labelSchema],
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -49,9 +40,5 @@ const cardSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 const Card = mongoose.model('Card', cardSchema)
-const Label = mongoose.model('Label', labelSchema)
 
-export {
-    Card,
-    Label
-}
+export default Card

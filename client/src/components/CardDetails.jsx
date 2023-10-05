@@ -4,12 +4,21 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { serverUrl } from '../utils/urls'
 
+
+const labelColours = ['#FDD6CE', '#BCECD7', '#CACDFF', '#FBE2AA']
+
 const CardDetails = () => {
-  const { toggle, cardItem, toggleCard } = useCard()
+  const { toggle, cardItem, toggleCard, access } = useCard()
 
   const [cardDetails, setCardDetails] = useState(null)
   const [activeDescription, setActiveDescription] = useState(false)
+  const [activeLabelInput, setActiveLabelInput] = useState(false)
   const [title, setTitle] = useState('')
+  const [labels, setLabels] = useState([])
+  const [newLabel, setNewLabel] = useState({
+    name: '',
+    color: labelColours[0],
+  })
   const [checklists, setChecklists] = useState([])
   const [newChecklist, setNewChecklist] = useState('')
   const [content, setContent] = useState('')
@@ -18,6 +27,7 @@ const CardDetails = () => {
     if (cardItem) {
       setTitle(cardItem.title)
       setContent(cardItem.description)
+      setLabels(cardItem.labels)
       setChecklists(cardItem.checklists)
     }
   }, [cardItem])
@@ -29,7 +39,7 @@ const CardDetails = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ title, description: content, checklists })
+        body: JSON.stringify({ title, description: content, checklists, labels })
       })
       const data = await response.json()
       // setCardData(data)
@@ -59,10 +69,34 @@ const CardDetails = () => {
       const updatedItems = [...checklists]
       updatedItems.splice(index, 1)
       setChecklists(updatedItems)
+  }
+  
+  const handleAddLabel = () => {
+    if (newLabel.name.trim() !== '') {
+      setLabels([...labels, { ...newLabel }])
+      setNewLabel({ name: '', color: labelColours[0] })
     }
-    
+  }
+  
+  const handleNameChange = (event) => {
+    const newName = event.target.value
+    setNewLabel({ ...newLabel, name: newName })
+  }
 
-  console.log(checklists)
+  const handleColorChange = (event) => {
+    const newColor = event.target.value
+    setNewLabel({ ...newLabel, color: newColor })
+  }
+
+  const handleRemoveLabel = (index) => {
+    const updatedLabels = [...labels]
+    updatedLabels.splice(index, 1)
+    setLabels(updatedLabels)
+  }
+
+  // console.log(checklists)
+  // console.log(cardItem)
+  console.log(access)
 
   return (
     <div
@@ -76,9 +110,6 @@ const CardDetails = () => {
           </button>
         </header>
 
-        {/* <form
-          onSubmit={handleSubmit}
-        > */}
           <div className='description'>
             <div className='head'>
               <i className="uil uil-file-alt"></i>
@@ -96,6 +127,44 @@ const CardDetails = () => {
                 }
               </div>
             }
+          </div>
+
+          <div className="labels">
+            <div className="head">
+              <i className="uil uil-tag"></i>
+              <h3>labels</h3>
+            </div>
+            <button onClick={() => setActiveLabelInput(prevValue => !prevValue)} className="add-label"><i className="uil uil-plus"></i></button>
+            {activeLabelInput &&
+              <div className="label-input">
+                <input
+                  type="text"
+                  value={newLabel.name}
+                  onChange={handleNameChange}
+                  placeholder="Label Name"
+                />
+                <select value={newLabel.color} onChange={handleColorChange}>
+                  {labelColours.map((color, index) => (
+                    <option key={index} value={color}>
+                      {color}
+                    </option>
+                  ))}
+                </select>
+                <button onClick={handleAddLabel}>Add Label</button>
+              </div>
+            }
+            <ul>
+              { labels && labels.map((label, index) => (
+                  <li key={index} className="tag">
+                    <span style={{ backgroundColor: label.color }}>
+                      {label.name}
+                      <button onClick={() => handleRemoveLabel(index)}>
+                        <i className="uil uil-times"></i>
+                      </button>
+                    </span>
+                  </li>
+              ))}
+            </ul>
           </div>
 
           <div className="checklists">
@@ -130,8 +199,12 @@ const CardDetails = () => {
             </form>
           </div>
           
-          <button onClick={handleSubmit} className='done'>done</button>
-        {/* </form> */}
+        <form
+          onSubmit={handleSubmit}
+        >
+          {/* <button onClick={handleSubmit} className='done'>done</button> */}
+          <button type='submit' className='done'>done</button>
+        </form>
     </div>
   )
 }

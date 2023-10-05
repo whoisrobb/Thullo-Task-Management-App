@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { serverUrl } from '../utils/urls'
 import jwtDecode from 'jwt-decode'
+import { useCard } from './CardProvider'
 
 const Sidebar = ({ userId }) => {
+    const { access } = useCard()
     const [modal, setModal] = useState(false)
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
@@ -55,24 +57,26 @@ const Sidebar = ({ userId }) => {
         <Link to={'/'} className='workspace'>
             <span>R</span>
             <div>
-                <h2>Robert Muchiri's</h2>
+                { access && <h2>{access.username}'s</h2>}
                 <p>workspace</p>
             </div>
         </Link>
-        <nav>
-            <Link to={'workspace/board/:userId'}>
-                <i className="uil uil-create-dashboard"></i>
-                board
-            </Link>
-            <Link to={'/workspace/members'}>
-                <i className="uil uil-user"></i>
-                members
-            </Link>
-            <Link to={'/workspace/board/:userId'}>
-                <i className="uil uil-setting"></i>
-                workspace settings
-            </Link>
-        </nav>
+        {access &&
+            <nav> 
+                <Link to={`/workspace/${access.id}`}>
+                    <i className="uil uil-create-dashboard"></i>
+                    board
+                </Link>
+                <Link to={`/workspace/${access.id}`}>
+                    <i className="uil uil-user"></i>
+                    members
+                </Link>
+                <Link to={`/workspace/${access.id}`}>
+                    <i className="uil uil-setting"></i>
+                    workspace settings
+                </Link>
+            </nav>
+        }
         <div className="boards">
             <div className='actions'>
                 <h3>Your boards</h3>
