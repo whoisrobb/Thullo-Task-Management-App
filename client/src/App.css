@@ -24,6 +24,14 @@ h1, h2, h3, h4, h5, h6, p, li {
   padding: 0;
 }
 
+ul {
+  padding: 0;
+  margin: 0;
+}
+ul li {
+  list-style: none;
+}
+
 .uil {
   color: #9B9B9B;
 }
@@ -81,15 +89,6 @@ button {
   justify-content: space-between;
   align-self: center;
 }
-.sidebar .boards .actions button.toggle-modal {
-  padding: 0;
-  border: none;
-  background: transparent;
-}
-.sidebar .boards .actions button.toggle-modal .uil {
-  color: #9B9B9B;
-  font-size: 1.2rem;
-}
 .sidebar .boards .actions .create-board {
   position: absolute;
   padding: 1rem;
@@ -142,9 +141,20 @@ button {
   text-transform: capitalize;
   font-weight: 700;
 }
-.sidebar .boards .board-links a.board-link {
-  border: 1px solid #9B9B9B;
-  margin: 0.5rem 0;
+.sidebar .boards .board-links nav.board-links-list {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar .boards .board-links nav.board-links-list .link-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+}
+.sidebar .boards .board-links nav.board-links-list .link-item a.board-link {
+  width: 100%;
 }
 
 .wrapper {
@@ -204,9 +214,6 @@ button {
   width: 15rem;
   left: 100%;
 }
-#boards .actions .list .list-header .list-menu-actions, #boards .actions .list .list-header .card-menu-actions {
-  background: red;
-}
 #boards .actions .list .list-header button.create-list, #boards .actions .list .list-header button.list-menu, #boards .actions .list .list-header button.card-menu {
   color: #9B9B9B;
   margin: 0;
@@ -236,6 +243,16 @@ button {
   cursor: pointer;
   background: #202020;
   margin: 0.2rem 0;
+  padding: 0.5rem;
+}
+#boards .actions .list .cards .card .head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+#boards .actions .list .cards .card .head button {
+  z-index: 100;
 }
 
 .card-details {
@@ -271,4 +288,33 @@ button {
 }
 .card-details .description button.set-active:hover {
   background: rgba(155, 155, 155, 0.3);
+}
+
+ul.label-list {
+  display: flex;
+  padding: 0;
+}
+ul.label-list li {
+  list-style: none;
+  margin: 0.3rem;
+  padding: 0.2rem 0.5rem;
+  color: #202020;
+  border-radius: 2px;
+}
+
+button.toggle-modal {
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+button.toggle-modal .uil {
+  color: #9B9B9B;
+  font-size: 1.2rem;
+}
+
+.modal-toggle {
+  position: absolute;
+  z-index: 1000;
+  background: white;
+  left: 100%;
 }/*# sourceMappingURL=App.css.map */

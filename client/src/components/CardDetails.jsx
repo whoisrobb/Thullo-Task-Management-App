@@ -96,7 +96,7 @@ const CardDetails = () => {
 
   // console.log(checklists)
   // console.log(cardItem)
-  console.log(access)
+  // console.log(access)
 
   return (
     <div
@@ -118,6 +118,7 @@ const CardDetails = () => {
             {activeDescription ? 
               <div className="active-description">
                   <ReactQuill value={content} onChange={(value) => setContent(value)} />
+                  <button onClick={() => setActiveDescription(false)}>done</button>
               </div> :
               <div className="content">
                 {cardItem.description ? 
@@ -153,18 +154,20 @@ const CardDetails = () => {
                 <button onClick={handleAddLabel}>Add Label</button>
               </div>
             }
-            <ul>
-              { labels && labels.map((label, index) => (
-                  <li key={index} className="tag">
-                    <span style={{ backgroundColor: label.color }}>
-                      {label.name}
-                      <button onClick={() => handleRemoveLabel(index)}>
-                        <i className="uil uil-times"></i>
-                      </button>
-                    </span>
-                  </li>
-              ))}
-            </ul>
+              { labels &&
+                <ul className='label-list'>
+                  {labels.map((label, index) => (
+                    <li style={{ backgroundColor: label.color }} key={index} className="tag">
+                      <span>
+                        {label.name}
+                        <button onClick={() => handleRemoveLabel(index)}>
+                          <i className="uil uil-times"></i>
+                        </button>
+                      </span>
+                    </li>
+                ))}
+                </ul>
+              }
           </div>
 
           <div className="checklists">
@@ -203,7 +206,7 @@ const CardDetails = () => {
           onSubmit={handleSubmit}
         >
           {/* <button onClick={handleSubmit} className='done'>done</button> */}
-          <button type='submit' className='done'>done</button>
+          <button type='submit' className='done'>save changes</button>
         </form>
     </div>
   )

@@ -113,12 +113,19 @@ const Sidebar = ({ userId }) => {
                 </div>
             </div>
             <div className="board-links">
-                { boards && 
-                    boards.map((board) => (
-                        <Link key={board._id} to={`/workspace/boards/${board._id}`} className='board-link'>
-                            <div className="box">{board.title}</div>
-                        </Link>
-                    ))
+                { boards &&
+                    <nav className='board-links-list'>
+                        {boards.map((board) => (
+                            <div className='link-item' key={board._id}>
+                                <Link to={`/workspace/boards/${board._id}`} className='board-link'>
+                                        {board.title}
+                                </Link>
+                                <button className='toggle-modal'>
+                                    <i className="uil uil-ellipsis-v"></i>
+                                </button>
+                            </div>
+                        ))}
+                    </nav>
                 }
             </div>
         </div>

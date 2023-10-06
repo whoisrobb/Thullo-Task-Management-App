@@ -35,6 +35,15 @@ h1, h2, h3, h4, h5, h6, p, li {
     padding: 0;
 }
 
+ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+        list-style: none;
+    }
+}
+
 .uil {
     color: $light;
     // font-size: 1.2rem;
@@ -100,18 +109,6 @@ button {
             display: flex;
             justify-content: space-between;
             align-self: center;
-            // background: red;
-
-            button.toggle-modal {
-                padding: 0;
-                border: none;
-                background: transparent;
-
-                .uil {
-                    color: $light;
-                    font-size: 1.2rem;
-                }
-            }
 
             .create-board {
                 position: absolute;
@@ -156,6 +153,7 @@ button {
                         text-transform: capitalize;
                     }
                 }
+
                 button {
                     width: 100%;
                     padding: 0.5rem 0;
@@ -170,10 +168,24 @@ button {
         }
 
         .board-links {
-            
-            a.board-link {
-                border: 1px solid $light;
-                margin: 0.5rem 0;
+
+            nav.board-links-list {
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+
+                .link-item {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+                    padding: 0;
+                    // border-bottom: 1px solid rgba($light, .1);
+                    
+                    a.board-link {
+                        width: 100%;
+                    }
+                }
             }
         }
     }
@@ -250,7 +262,7 @@ button {
                 }
 
                 .list-menu-actions, .card-menu-actions {
-                    background: red;
+                    // background: red;
                 }
 
                 button.create-list, button.list-menu, button.card-menu {
@@ -287,13 +299,23 @@ button {
             }
 
             .cards {
-                // min-height: 1rem;
-                // width: 100%;
 
                 .card {
                     cursor: pointer;
                     background: $dark;
                     margin: 0.2rem 0;
+                    padding: .5rem;         
+
+                    .head {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        position: relative;
+
+                        button {
+                            z-index: 100;
+                        }
+                    }
                 }
             }
         }
@@ -342,4 +364,37 @@ button {
             }
         }
     }
+}
+
+
+// LABEL LISTS
+ul.label-list {
+    display: flex;
+    padding: 0;
+
+    li {
+        list-style: none;
+        margin: 0.3rem;
+        padding: 0.2rem 0.5rem;
+        color: $dark;
+        border-radius: 2px;
+    }
+}
+
+button.toggle-modal {
+    padding: 0;
+    border: none;
+    background: transparent;
+
+    .uil {
+        color: $light;
+        font-size: 1.2rem;
+    }
+}
+
+.modal-toggle {
+    position: absolute;
+    z-index: 1000;
+    background: white;
+    left: 100%;
 }

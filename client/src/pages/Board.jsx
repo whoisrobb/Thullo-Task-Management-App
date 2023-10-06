@@ -16,6 +16,7 @@ const Board = () => {
     const [create, setCreateList] = useState(false)
     const [listMenu, setListMenu] = useState({})
     const [cardMenu, setCardMenu] = useState({})
+    const [cardModals, setCardModals] = useState({})
 
     useEffect(() => {
         fetchBoard()
@@ -94,8 +95,9 @@ const Board = () => {
                                     
                                     <button className='card-menu' onClick={() => {
                                             setCardMenu(cardMenu === list._id ? null : list._id);
-                                        }}>
-                                            <i className="uil uil-plus"></i>
+                                        }}
+                                    >
+                                        <i className="uil uil-plus"></i>
                                     </button>
                                     
                                     <button className='card-menu' onClick={() => {
@@ -136,10 +138,55 @@ const Board = () => {
                                             toggleCard();
                                             }}
                                         >
-                                            <h3>{card.title}</h3>
-                                            {/* {card.description && <p>{card.description}</p>} */}
+                                            <div className="head">
+                                                <h3>{card.title}</h3>
+                                                <button
+                                                    className="toggle-modal"
+                                                    onClick={() => {
+                                                      setCardModals((prevModals) => ({
+                                                        ...prevModals,
+                                                        [card._id]: !prevModals[card._id],
+                                                      }))
+                                                    }}
+                                                >
+                                                    <i className="uil uil-ellipsis-v"></i>
+                                                </button>
+                                                
+                                                {cardModals[card._id] && (
+                                                    <div className="modal-toggle">
+                                                        <Link to={'/'}>wsgood</Link>
+                                                    </div>
+                                                )}
+                                            </div>
+
                                             {card.description && <div className='content' dangerouslySetInnerHTML={{ __html: card.description }} />}
                                             
+                                            { card.labels.length >= 1 &&
+                                                <ul className='label-list'>
+                                                    {card.labels.map((label, index) => (
+                                                        <li style={{ backgroundColor: label.color }} key={index} className="tag">
+                                                            <span>
+                                                            {label.name}
+                                                            </span>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            }
+
+                                            {card.checklists &&
+                                                <ul>
+                                                    {card.checklists.map((item, index) => (
+                                                        <li key={index}>
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={item.checked}
+                                                                readOnly
+                                                            />
+                                                            {item.text}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            }
                                         </div>
                                     ))
                                 }

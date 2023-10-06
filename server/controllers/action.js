@@ -1,5 +1,5 @@
 import Board from "../models/board.js"
-import { Card } from "../models/card.js"
+import Card from "../models/card.js"
 import List from "../models/list.js"
 
 
