@@ -11,6 +11,8 @@ const Sidebar = ({ userId }) => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [boards, setBoards] = useState(null)
+    const [deleteBoard, setDeleteBoard] = useState(false)
+    const [cardModals, setCardModals] = useState({})
 
     useEffect(() => {
         const token = localStorage.getItem('accessToken')
@@ -54,6 +56,10 @@ const Sidebar = ({ userId }) => {
         } catch (err) {
             console.error(err)
         }
+    }
+
+    const handleDelete = async () => {
+        alert('Deleted Successfully!')
     }
 
   return (
@@ -120,13 +126,36 @@ const Sidebar = ({ userId }) => {
                 { boards &&
                     <nav className='board-links-list'>
                         {boards.map((board) => (
-                            <div className='link-item' key={board._id}>
+                            <div className='link-item' style={{ position: 'relative' }} key={board._id}>
                                 <Link to={`/workspace/boards/${board._id}`} className='board-link'>
                                         {board.title}
                                 </Link>
-                                <button className='toggle-modal'>
+                                <button className='toggle-modal' onClick={() => {
+                                            setCardModals(cardModals === board._id ? null : board._id);
+                                        }}>
                                     <i className="uil uil-ellipsis-v"></i>
                                 </button>
+                                {  cardModals === board._id &&
+                                    <div className="modal-toggle">
+                                        {
+                                            deleteBoard ?
+                                            <>
+                                                <p>Are you sure you want to delete?</p>
+                                                {/* <button onClick={handleDelete}>confirm delete</button> */}
+                                                <button onClick={() => {
+                                                    handleDelete();
+                                                    setDeleteBoard(false)
+                                                }}>
+                                                    confirm delete
+                                                    </button>
+                                            </>
+                                            :
+                                            <div className="list-menu-head">
+                                                <button onClick={() => setDeleteBoard(true)}>delete board</button>
+                                            </div>
+                                        }
+                                    </div>
+                                }
                             </div>
                         ))}
                     </nav>

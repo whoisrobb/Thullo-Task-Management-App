@@ -13,6 +13,7 @@ const Board = () => {
     const [cardTitle, setCardTitle] = useState('')
     const [board, setBoard] = useState(null)
     const [lists, setLists] = useState(null)
+    const [deleteCard, setDeleteCard] = useState(false)
     const [create, setCreateList] = useState(false)
     const [listMenu, setListMenu] = useState({})
     const [cardMenu, setCardMenu] = useState({})
@@ -61,9 +62,9 @@ const Board = () => {
         }
     }
 
-    useEffect(() => {
-        console.log(cardMenu)
-    }, [cardMenu])
+    // useEffect(() => {
+    //     console.log(cardMenu)
+    // }, [cardMenu])
 
     const createCard = async () => {
         try {
@@ -77,6 +78,10 @@ const Board = () => {
         } catch (err) {
             console.error(err)
         }
+    }
+
+    const handleDeleteCard = async () => {
+        alert('Card deleted')
     }
 
   return (
@@ -153,9 +158,28 @@ const Board = () => {
                                                 </button>
                                                 
                                                 {cardModals[card._id] && (
-                                                    <div className="modal-toggle">
-                                                        {card._id}
-                                                    </div>
+                                                    <>
+                                                        <div className="modal-toggle">
+                                                            {card._id}
+                                                        {
+                                                            deleteCard ?
+                                                            <>
+                                                                <p>Are you sure you want to delete?</p>
+                                                                {/* <button onClick={handleDelete}>confirm delete</button> */}
+                                                                <button onClick={() => {
+                                                                    handleDeleteCard();
+                                                                    setDeleteCard(false)
+                                                                }}>
+                                                                    confirm delete
+                                                                    </button>
+                                                            </>
+                                                            :
+                                                            <div className="list-menu-head">
+                                                                <button onClick={() => setDeleteCard(true)}>delete board</button>
+                                                            </div>
+                                                        }
+                                                        </div>
+                                                    </>
                                                 )}
                                             </div>
 
