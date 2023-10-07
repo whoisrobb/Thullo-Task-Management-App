@@ -29,7 +29,7 @@ a {
     text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6, p, li {
+h1, h2, h3, h4, h5, h6, p {
     color: $light;
     margin: 0;
     padding: 0;
@@ -37,10 +37,13 @@ h1, h2, h3, h4, h5, h6, p, li {
 
 ul {
     padding: 0;
-    margin: 0;
+    margin: .5rem 0;
 
     li {
         list-style: none;
+        color: $light;
+        margin: 0 .5rem;
+        padding: 0;
     }
 }
 
@@ -261,10 +264,6 @@ button {
                     left: 100%;
                 }
 
-                .list-menu-actions, .card-menu-actions {
-                    // background: red;
-                }
-
                 button.create-list, button.list-menu, button.card-menu {
                     color: $light;
                     margin: 0;
@@ -316,6 +315,10 @@ button {
                             z-index: 100;
                         }
                     }
+
+                    .content {
+                        margin: 0.5rem 0;
+                    }
                 }
             }
         }
@@ -334,6 +337,17 @@ button {
     transform-origin: right;
     padding: 1rem;
 
+    button.close-card, button.remove {
+        border: none;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+    }
+
+    button.remove {
+        margin-left: .5rem;
+    }
+
     header.head {
         justify-content: space-between;
     }
@@ -341,6 +355,7 @@ button {
     .head {
         display: flex;
         align-items: center;
+        text-transform: capitalize;
 
         .uil {
             font-size: 1.2rem;
@@ -348,19 +363,72 @@ button {
         }
     }
 
-    .description {
+    .description, .labels, .checklists {
+        margin: 1rem 0;
+
+        button.add {
+            border: none;
+            text-transform: capitalize;
+            padding: .3rem 1rem;
+            font-family: $sans;
+            background: $accent;
+        }
+    }
+
+    .labels, .checklists {
+
+        input[type="text"] {
+            border: 1px solid $light;
+            background: transparent;
+            padding: 0.5rem 0;
+            margin: 0.5rem 0;
+            width: 100%;
+            color: $white;
+            font-family: $sans;
+
+            &::placeholder {
+                font-family: $sans;
+            }
+        }
+    }
 
         button.set-active {
-            width: 100%;
-            padding: 1rem;
             font-family: $sans;
-            font-size: 1rem;
             color: $light;
             background: rgba($light, .1);
             border: none;
 
             &:hover {
                 background: rgba($light, .3);
+            }
+        }
+
+    .description {
+
+        button.set-active {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+        }
+    }
+
+    .checklists {
+        
+        button.set-active {
+            // width: 100%;
+            padding: .5rem 1rem;
+            font-size: 1rem;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+
+            input {
+                margin: 0 .5rem;
+            }
+            
+            button {
+                float: right;
             }
         }
     }
@@ -395,6 +463,18 @@ button.toggle-modal {
 .modal-toggle {
     position: absolute;
     z-index: 1000;
+    padding: 1rem;
     background: white;
     left: 100%;
+    width: 100%;
+}
+
+button.submit {
+    width: 100%;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-family: $sans;
+    font-size: 1rem;
+    background: $light;
+    border: none;
 }

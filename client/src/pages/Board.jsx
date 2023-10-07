@@ -107,7 +107,7 @@ const Board = () => {
                                     </button>
                                 </div>
                                 {  listMenu === list._id &&
-                                    <div className="list-menu-actions">
+                                    <div className="modal-toggle">
                                         <div className="list-menu-head">
                                             <p>List actions</p>
                                         </div>
@@ -154,7 +154,7 @@ const Board = () => {
                                                 
                                                 {cardModals[card._id] && (
                                                     <div className="modal-toggle">
-                                                        <Link to={'/'}>wsgood</Link>
+                                                        {card._id}
                                                     </div>
                                                 )}
                                             </div>
@@ -173,8 +173,9 @@ const Board = () => {
                                                 </ul>
                                             }
 
-                                            {card.checklists &&
+                                            {card.checklists.length >= 1 &&
                                                 <ul>
+                                                    <h3>to do lists</h3>
                                                     {card.checklists.map((item, index) => (
                                                         <li key={index}>
                                                             <input

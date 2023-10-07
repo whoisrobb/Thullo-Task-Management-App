@@ -12,6 +12,7 @@ const CardDetails = () => {
 
   const [cardDetails, setCardDetails] = useState(null)
   const [activeDescription, setActiveDescription] = useState(false)
+  const [activeChecklist, setActiveChecklist] = useState(false)
   const [activeLabelInput, setActiveLabelInput] = useState(false)
   const [title, setTitle] = useState('')
   const [labels, setLabels] = useState([])
@@ -105,7 +106,7 @@ const CardDetails = () => {
     >
         <header className="head">
           <h3 className="title">{cardItem && cardItem.title}</h3>
-          <button onClick={toggleCard}>
+          <button className='close-card' onClick={toggleCard}>
             <i className="uil uil-times"></i>
           </button>
         </header>
@@ -118,7 +119,7 @@ const CardDetails = () => {
             {activeDescription ? 
               <div className="active-description">
                   <ReactQuill value={content} onChange={(value) => setContent(value)} />
-                  <button onClick={() => setActiveDescription(false)}>done</button>
+                  <button className='add' onClick={() => setActiveDescription(false)}>done</button>
               </div> :
               <div className="content">
                 {cardItem.description ? 
@@ -144,14 +145,14 @@ const CardDetails = () => {
                   onChange={handleNameChange}
                   placeholder="Label Name"
                 />
+                <button className='add' style={{ marginRight: '1rem' }} onClick={handleAddLabel}>Add Label</button>
                 <select value={newLabel.color} onChange={handleColorChange}>
                   {labelColours.map((color, index) => (
-                    <option key={index} value={color}>
+                    <option key={index} value={color} style={{ backgroundColor: color }}>
                       {color}
                     </option>
                   ))}
                 </select>
-                <button onClick={handleAddLabel}>Add Label</button>
               </div>
             }
               { labels &&
@@ -160,7 +161,7 @@ const CardDetails = () => {
                     <li style={{ backgroundColor: label.color }} key={index} className="tag">
                       <span>
                         {label.name}
-                        <button onClick={() => handleRemoveLabel(index)}>
+                        <button className='remove' onClick={() => handleRemoveLabel(index)}>
                           <i className="uil uil-times"></i>
                         </button>
                       </span>
@@ -185,28 +186,33 @@ const CardDetails = () => {
                     onChange={() => handleToggleItem(index)}
                   />
                   {item.text}
-                  <button onClick={() => handleRemoveItem(index)}>
+                  <button className='remove' onClick={() => handleRemoveItem(index)}>
                     <i className="uil uil-times"></i>
                   </button>
                 </li>
               ))}
             </ul>
-            <form>
-              <input
-                type="text"
-                value={newChecklist}
-                onChange={(e) => setNewChecklist(e.target.value)}
-                placeholder="Add a new item"
-              />
-              <button onClick={handleAddItem}>Add</button>
-            </form>
+            {activeChecklist ? 
+              <form>
+                <input
+                  type="text"
+                  value={newChecklist}
+                  onChange={(e) => setNewChecklist(e.target.value)}
+                  placeholder="Add a new item"
+                />
+                <button className='add' onClick={handleAddItem}>Add</button>
+                <button className='remove' style={{ color: 'white' }} onClick={() => setActiveChecklist(false)}>done</button>
+              </form>
+              : 
+              <button onClick={() => setActiveChecklist(true)} className='set-active'>add to do list item</button>
+            }
           </div>
           
         <form
           onSubmit={handleSubmit}
         >
           {/* <button onClick={handleSubmit} className='done'>done</button> */}
-          <button type='submit' className='done'>save changes</button>
+          <button type='submit' className='submit'>save changes</button>
         </form>
     </div>
   )

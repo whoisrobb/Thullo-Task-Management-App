@@ -18,7 +18,7 @@ a {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6, p, li {
+h1, h2, h3, h4, h5, h6, p {
   color: #9B9B9B;
   margin: 0;
   padding: 0;
@@ -26,10 +26,13 @@ h1, h2, h3, h4, h5, h6, p, li {
 
 ul {
   padding: 0;
-  margin: 0;
+  margin: 0.5rem 0;
 }
 ul li {
   list-style: none;
+  color: #9B9B9B;
+  margin: 0 0.5rem;
+  padding: 0;
 }
 
 .uil {
@@ -254,6 +257,9 @@ button {
 #boards .actions .list .cards .card .head button {
   z-index: 100;
 }
+#boards .actions .list .cards .card .content {
+  margin: 0.5rem 0;
+}
 
 .card-details {
   position: absolute;
@@ -266,28 +272,78 @@ button {
   transform-origin: right;
   padding: 1rem;
 }
+.card-details button.close-card, .card-details button.remove {
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+.card-details button.remove {
+  margin-left: 0.5rem;
+}
 .card-details header.head {
   justify-content: space-between;
 }
 .card-details .head {
   display: flex;
   align-items: center;
+  text-transform: capitalize;
 }
 .card-details .head .uil {
   font-size: 1.2rem;
   margin-right: 0.5rem;
 }
-.card-details .description button.set-active {
-  width: 100%;
-  padding: 1rem;
+.card-details .description, .card-details .labels, .card-details .checklists {
+  margin: 1rem 0;
+}
+.card-details .description button.add, .card-details .labels button.add, .card-details .checklists button.add {
+  border: none;
+  text-transform: capitalize;
+  padding: 0.3rem 1rem;
   font-family: "Nunito Sans";
-  font-size: 1rem;
+  background: #579dff;
+}
+.card-details .labels input[type=text], .card-details .checklists input[type=text] {
+  border: 1px solid #9B9B9B;
+  background: transparent;
+  padding: 0.5rem 0;
+  margin: 0.5rem 0;
+  width: 100%;
+  color: #D9D9D9;
+  font-family: "Nunito Sans";
+}
+.card-details .labels input[type=text]::-moz-placeholder, .card-details .checklists input[type=text]::-moz-placeholder {
+  font-family: "Nunito Sans";
+}
+.card-details .labels input[type=text]::placeholder, .card-details .checklists input[type=text]::placeholder {
+  font-family: "Nunito Sans";
+}
+.card-details button.set-active {
+  font-family: "Nunito Sans";
   color: #9B9B9B;
   background: rgba(155, 155, 155, 0.1);
   border: none;
 }
-.card-details .description button.set-active:hover {
+.card-details button.set-active:hover {
   background: rgba(155, 155, 155, 0.3);
+}
+.card-details .description button.set-active {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+}
+.card-details .checklists button.set-active {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+.card-details .checklists li {
+  margin: 0.5rem 0;
+}
+.card-details .checklists li input {
+  margin: 0 0.5rem;
+}
+.card-details .checklists li button {
+  float: right;
 }
 
 ul.label-list {
@@ -315,6 +371,18 @@ button.toggle-modal .uil {
 .modal-toggle {
   position: absolute;
   z-index: 1000;
+  padding: 1rem;
   background: white;
   left: 100%;
+  width: 100%;
+}
+
+button.submit {
+  width: 100%;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-family: "Nunito Sans";
+  font-size: 1rem;
+  background: #9B9B9B;
+  border: none;
 }/*# sourceMappingURL=App.css.map */

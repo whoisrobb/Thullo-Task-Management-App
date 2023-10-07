@@ -6,6 +6,7 @@ import { useCard } from './CardProvider'
 
 const Sidebar = ({ userId }) => {
     const { access } = useCard()
+
     const [modal, setModal] = useState(false)
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
@@ -25,15 +26,18 @@ const Sidebar = ({ userId }) => {
             const response = await fetch(`${serverUrl}/board/all/${id}`)
             const data = await response.json()
             setBoards(data)
-            // console.log(data)
         } catch (err) {
             console.error(err)
         }
     }
 
-    const formData = { title, description, createdBy: userId }
-
     const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        const formData = { title, description, createdBy: access.id }
+        console.log(formData)
+        console.log(access.id)
+
         try {
             const response = await fetch(`${serverUrl}/board/create`, {
                 method: 'POST',
