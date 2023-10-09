@@ -95,10 +95,6 @@ const CardDetails = () => {
     setLabels(updatedLabels)
   }
 
-  // console.log(checklists)
-  // console.log(cardItem)
-  // console.log(access)
-
   return (
     <div
       className='card-details'
@@ -121,7 +117,7 @@ const CardDetails = () => {
                   <ReactQuill value={content} onChange={(value) => setContent(value)} />
                   <button className='add' onClick={() => setActiveDescription(false)}>done</button>
               </div> :
-              <div className="content">
+              <div>
                 {cardItem.description ? 
                   <div onClick={() => setActiveDescription(true)} className='content' dangerouslySetInnerHTML={{ __html: content }} />
                   :
@@ -136,27 +132,11 @@ const CardDetails = () => {
               <i className="uil uil-tag"></i>
               <h3>labels</h3>
             </div>
-            <button onClick={() => setActiveLabelInput(prevValue => !prevValue)} className="add-label"><i className="uil uil-plus"></i></button>
-            {activeLabelInput &&
-              <div className="label-input">
-                <input
-                  type="text"
-                  value={newLabel.name}
-                  onChange={handleNameChange}
-                  placeholder="Label Name"
-                />
-                <button className='add' style={{ marginRight: '1rem' }} onClick={handleAddLabel}>Add Label</button>
-                <select value={newLabel.color} onChange={handleColorChange}>
-                  {labelColours.map((color, index) => (
-                    <option key={index} value={color} style={{ backgroundColor: color }}>
-                      {color}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            }
               { labels &&
                 <ul className='label-list'>
+                  <li>
+                    <div onClick={() => setActiveLabelInput(prevValue => !prevValue)} className="add-label"><i className="uil uil-plus"></i></div>
+                  </li>
                   {labels.map((label, index) => (
                     <li style={{ backgroundColor: label.color }} key={index} className="tag">
                       <span>
@@ -168,6 +148,24 @@ const CardDetails = () => {
                     </li>
                 ))}
                 </ul>
+              }
+              {activeLabelInput &&
+                <div className="label-input">
+                  <input
+                    type="text"
+                    value={newLabel.name}
+                    onChange={handleNameChange}
+                    placeholder="Label Name"
+                  />
+                  <button className='add' style={{ marginRight: '1rem' }} onClick={handleAddLabel}>Add Label</button>
+                  <select value={newLabel.color} onChange={handleColorChange}>
+                    {labelColours.map((color, index) => (
+                      <option key={index} value={color} style={{ backgroundColor: color }}>
+                        {color}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               }
           </div>
 

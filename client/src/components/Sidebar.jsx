@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { serverUrl } from '../utils/urls'
 import jwtDecode from 'jwt-decode'
 import { useCard } from './CardProvider'
 
 const Sidebar = ({ userId }) => {
     const { access } = useCard()
+    const navigate = useNavigate()
 
     const [modal, setModal] = useState(false)
     const [title, setTitle] = useState('')
@@ -48,18 +49,34 @@ const Sidebar = ({ userId }) => {
                 },
                 body: JSON.stringify(formData)
             })
-            .then((response) => {
-                if (response.ok) {
-                    setModal(false)
-                }
-            })
+            if (response.ok) {
+                const responseData = await response.json()
+                setModal(false);
+                navigate(`/workspace/boards/${responseData._id}`)
+            } else {
+                console.error(response.status, response.statusText);
+            }
         } catch (err) {
             console.error(err)
         }
     }
 
-    const handleDelete = async () => {
-        alert('Deleted Successfully!')
+    const handleDelete = async (boardId) => {
+        try {
+            const response = await fetch(`${serverUrl}/board/${boardId}`, {
+                method: 'DELETE',
+            })
+            
+            if (!response.ok) {
+                throw new Error('Failed to delete post');
+            }
+
+            const res = await response.json(response)
+            console.log(res)
+
+        } catch (err) {
+            console.error(err)
+        }
     }
 
   return (
@@ -141,13 +158,11 @@ const Sidebar = ({ userId }) => {
                                             deleteBoard ?
                                             <>
                                                 <p>Are you sure you want to delete?</p>
-                                                {/* <button onClick={handleDelete}>confirm delete</button> */}
-                                                <button onClick={() => {
-                                                    handleDelete();
-                                                    setDeleteBoard(false)
-                                                }}>
-                                                    confirm delete
+                                                <form onSubmit={() => handleDelete(board._id)}>
+                                                    <button type='submit'>
+                                                        confirm delete
                                                     </button>
+                                                </form>
                                             </>
                                             :
                                             <div className="list-menu-head">

@@ -38,6 +38,20 @@ export const getSingleBoard = async (req, res) => {
 }
 
 
+/* DELETE SINGLE BOARD */
+export const deleteSingleBoard = async (req, res) => {
+    try {
+        const { boardId } = req.params
+        const board = await Board.findById(boardId)
+
+        await board.deleteOne()
+        res.status(200).json({ message: 'Deleted Successfully' })
+    } catch (err) {
+        res.status(400).json({ message: err.message })
+    }
+}
+
+
 /* GET LISTS FOR BOARD */
 export const getLists = async (req, res) => {
     try {
@@ -46,16 +60,6 @@ export const getLists = async (req, res) => {
     } catch (err) {
         res.status(400).json({ message: err.message })
     }
-    // try {
-    //     const listsWithCards = await List.find()
-    //       .populate('cards') // Populate the 'cards' field in the List model
-    //       .exec();
-    
-    //     res.json(listsWithCards);
-    //   } catch (error) {
-    //     console.error(error);
-    //     res.status(500).json({ error: 'Server error' });
-    //   }
 }
 
 
@@ -72,11 +76,39 @@ export const createList = async (req, res) => {
 }
 
 
+/* DELETE LIST */
+export const deleteList = async (req, res) => {
+    try {
+        const { listId } = req.params
+        const list = await List.findById(listId)
+
+        await list.deleteOne()
+        res.status(200).json({ message: 'Deleted Successfully' })
+    } catch (err) {
+        res.status(400).json({ message: err.message })
+    }
+}
+
+
 /* GET CARDS */
 export const getCards = async (req, res) => {
     try {
         const { cardId } = req.params
         res.status(200).json( await Card.findById(cardId))
+    } catch (err) {
+        res.status(400).json({ message: err.message })
+    }
+}
+
+
+/* DELETE CARDS */
+export const deleteCard = async (req, res) => {
+    try {
+        const { cardId } = req.params
+        const card = await Card.findById(cardId)
+
+        await card.deleteOne()
+        res.status(200).json({ message: 'Deleted Successfully' })
     } catch (err) {
         res.status(400).json({ message: err.message })
     }
@@ -145,22 +177,3 @@ export const putCard = async (req, res) => {
         res.status(500).json({ message: err.message })
     }
 }
-  
-
-
-// title: String,
-// description: String,
-// position: Number,
-// checklists: [checklistSchema],
-// teamId: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: 'Team'
-// },
-// listId: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: 'List'
-// },
-// labels: [{
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: 'Label'
-// }],

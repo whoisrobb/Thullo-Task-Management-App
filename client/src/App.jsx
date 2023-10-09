@@ -11,6 +11,7 @@ import Board from './pages/Board'
 import CardDetails from './components/CardDetails'
 import WorkspaceLayout from './components/WorkspaceLayout'
 import CardProvider from './components/CardProvider'
+import Test from './pages/Test'
 
 function App() {
   const [userId, setUserId] = useState(null)
@@ -31,6 +32,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path='register' element={<Register />} />
           <Route path='login' element={<Login />} />
+          <Route path='test' element={<Test />} />
 
           <Route path='workspace' element={<WorkspaceLayout />} >
             <Route path=':userId' element={<Workspace />} />

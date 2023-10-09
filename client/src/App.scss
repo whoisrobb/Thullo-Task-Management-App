@@ -226,12 +226,21 @@ button {
     width: 80%;
     height: 100vh;
     overflow-y: scroll;
+    
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     .bar {
         padding: 0.5rem 0;
         position: fixed;
+        top: 0;
+        height: 4rem;
         width: 100%;
         background: $black;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
     }
 
     .actions {
@@ -335,7 +344,26 @@ button {
     left: 50%;
     transition: 200ms ease-in-out;
     transform-origin: right;
-    padding: 1rem;
+    padding: 2rem 1rem;
+    overflow: scroll;
+    z-index: 10000;
+
+    h3, .uil {
+        color: $white;
+    }
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .active-description {
+        margin: 1rem 0;
+    }
+    
+    .content {
+        cursor: pointer;
+        margin: 1rem 1.5rem;
+    }
 
     button.close-card, button.remove {
         border: none;
@@ -421,7 +449,7 @@ button {
         }
         
         li {
-            margin: 0.5rem 0;
+            margin: 0.5rem 1.5rem;
 
             input {
                 margin: 0 .5rem;
@@ -434,7 +462,6 @@ button {
     }
 }
 
-
 // LABEL LISTS
 ul.label-list {
     display: flex;
@@ -446,7 +473,17 @@ ul.label-list {
         padding: 0.2rem 0.5rem;
         color: $dark;
         border-radius: 2px;
+
+        .add-label {
+            width: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border: 2px solid $light;
+        }
     }
+
 }
 
 button.toggle-modal {

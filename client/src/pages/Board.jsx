@@ -14,6 +14,7 @@ const Board = () => {
     const [board, setBoard] = useState(null)
     const [lists, setLists] = useState(null)
     const [deleteCard, setDeleteCard] = useState(false)
+    const [deleteList, setDeleteList] = useState(false)
     const [create, setCreateList] = useState(false)
     const [listMenu, setListMenu] = useState({})
     const [cardMenu, setCardMenu] = useState({})
@@ -22,8 +23,31 @@ const Board = () => {
     useEffect(() => {
         fetchBoard()
         fetchLists()
-        // createList()
     }, [boardId])
+
+    const [openModalId, setOpenModalId] = useState(null);
+
+    // Function to close the modal
+    const closeCurrentModal = () => {
+      setOpenModalId(null);
+    };
+    
+    // Add an event listener to detect clicks outside of modals
+    useEffect(() => {
+      const handleOutsideClick = (e) => {
+        // Check if a modal is open and if the click target is outside of it
+        if (openModalId && e.target.closest('.modal-content') === null) {
+          closeCurrentModal();
+        }
+      };
+    
+      document.addEventListener('click', handleOutsideClick);
+    
+      return () => {
+        document.removeEventListener('click', handleOutsideClick);
+      };
+    }, [openModalId]);
+      
 
     const fetchBoard = async () => {
         try {
@@ -80,12 +104,42 @@ const Board = () => {
         }
     }
 
-    const handleDeleteCard = async () => {
-        alert('Card deleted')
+    const handleDeleteCard = async (cardId) => {
+        try {
+            const response = await fetch(`${serverUrl}/board/cards/${cardId}`, {
+                method: 'DELETE',
+            })
+            
+            if (!response.ok) {
+                throw new Error('Failed to delete post');
+            }
+
+            const res = await response.json(response)
+            console.log(res)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    const handleDeleteList = async (listId) => {
+        try {
+            const response = await fetch(`${serverUrl}/board/lists/${listId}`, {
+                method: 'DELETE',
+            })
+            
+            if (!response.ok) {
+                throw new Error('Failed to delete post');
+            }
+
+            const res = await response.json(response)
+            console.log(res)
+        } catch (err) {
+            console.error(err)
+        }
     }
 
   return (
-    <section id='boards'>
+    <section id='boards' onClick={() => {() => setCardMenu({}); () => setCardModals({}); console.log(cardMenu)}}>
         <div className="bar">
             {board && <h1>{board.title}</h1>}
         </div>
@@ -111,13 +165,25 @@ const Board = () => {
                                             <i className="uil uil-ellipsis-v"></i>
                                     </button>
                                 </div>
-                                {  listMenu === list._id &&
-                                    <div className="modal-toggle">
-                                        <div className="list-menu-head">
-                                            <p>List actions</p>
+                                {  listMenu === list._id &&                                    
+                                    <>
+                                        <div className="modal-toggle">
+                                            {list._id}
+                                        {
+                                            deleteList ?
+                                            <form onSubmit={() => handleDeleteList(list._id)}>
+                                                <p>Are you sure you want to delete?</p>
+                                                <button type='submit'>
+                                                    confirm delete
+                                                </button>
+                                            </form>
+                                            :
+                                            <div className="list-menu-head">
+                                                <button onClick={() => setDeleteList(true)}>delete list</button>
+                                            </div>
+                                        }
                                         </div>
-                                        <Link to={`/card/${list._id}`}>create card</Link>
-                                    </div>
+                                    </>
                                 }
                             </div>
                                 {  cardMenu === list._id &&
@@ -145,13 +211,21 @@ const Board = () => {
                                         >
                                             <div className="head">
                                                 <h3>{card.title}</h3>
-                                                <button
+                                                {/* <button
                                                     className="toggle-modal"
                                                     onClick={() => {
                                                       setCardModals((prevModals) => ({
                                                         ...prevModals,
                                                         [card._id]: !prevModals[card._id],
                                                       }))
+                                                    }}
+                                                >
+                                                    <i className="uil uil-ellipsis-v"></i>
+                                                </button> */}
+                                                <button
+                                                    className="toggle-modal"
+                                                    onClick={() => {
+                                                        setOpenModalId(card._id); // Set the ID of the open modal
                                                     }}
                                                 >
                                                     <i className="uil uil-ellipsis-v"></i>
@@ -163,19 +237,15 @@ const Board = () => {
                                                             {card._id}
                                                         {
                                                             deleteCard ?
-                                                            <>
+                                                            <form onSubmit={(e) => {e.preventDefault();  handleDeleteCard(card._id)}}>
                                                                 <p>Are you sure you want to delete?</p>
-                                                                {/* <button onClick={handleDelete}>confirm delete</button> */}
-                                                                <button onClick={() => {
-                                                                    handleDeleteCard();
-                                                                    setDeleteCard(false)
-                                                                }}>
+                                                                <button type='submit'>
                                                                     confirm delete
-                                                                    </button>
-                                                            </>
+                                                                </button>
+                                                            </form>
                                                             :
                                                             <div className="list-menu-head">
-                                                                <button onClick={() => setDeleteCard(true)}>delete board</button>
+                                                                <button onClick={() => setDeleteCard(true)}>delete card</button>
                                                             </div>
                                                         }
                                                         </div>
