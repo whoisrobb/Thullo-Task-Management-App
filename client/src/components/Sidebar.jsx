@@ -8,6 +8,7 @@ const Sidebar = ({ userId }) => {
     const { access } = useCard()
     const navigate = useNavigate()
 
+    const [sidebar, setSidebar] = useState(true)
     const [modal, setModal] = useState(false)
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
@@ -80,7 +81,12 @@ const Sidebar = ({ userId }) => {
     }
 
   return (
-    <div className='sidebar'>
+    <div className='sidebar'
+        style={sidebar ? { transform: 'scaleX(1)' } : { transform: 'scaleX(0)' }}
+    >
+        <button onClick={() => setSidebar(value => !value)} className='toggle-sidebar'>
+            <i className="uil uil-angle-right"></i>
+        </button>
         <Link to={'/'} className='workspace'>
             <span>R</span>
             <div>

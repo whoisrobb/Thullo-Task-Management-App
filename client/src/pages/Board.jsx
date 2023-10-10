@@ -168,7 +168,6 @@ const Board = () => {
                                 {  listMenu === list._id &&                                    
                                     <>
                                         <div className="modal-toggle">
-                                            {list._id}
                                         {
                                             deleteList ?
                                             <form onSubmit={() => handleDeleteList(list._id)}>
@@ -211,7 +210,7 @@ const Board = () => {
                                         >
                                             <div className="head">
                                                 <h3>{card.title}</h3>
-                                                {/* <button
+                                                <button
                                                     className="toggle-modal"
                                                     onClick={() => {
                                                       setCardModals((prevModals) => ({
@@ -221,23 +220,22 @@ const Board = () => {
                                                     }}
                                                 >
                                                     <i className="uil uil-ellipsis-v"></i>
-                                                </button> */}
-                                                <button
+                                                </button>
+                                                {/* <button
                                                     className="toggle-modal"
                                                     onClick={() => {
                                                         setOpenModalId(card._id); // Set the ID of the open modal
                                                     }}
                                                 >
                                                     <i className="uil uil-ellipsis-v"></i>
-                                                </button>
+                                                </button> */}
                                                 
                                                 {cardModals[card._id] && (
                                                     <>
                                                         <div className="modal-toggle">
-                                                            {card._id}
                                                         {
                                                             deleteCard ?
-                                                            <form onSubmit={(e) => {e.preventDefault();  handleDeleteCard(card._id)}}>
+                                                            <form onSubmit={handleDeleteCard(card._id)}>
                                                                 <p>Are you sure you want to delete?</p>
                                                                 <button type='submit'>
                                                                     confirm delete
@@ -271,13 +269,13 @@ const Board = () => {
                                                 <ul>
                                                     <h3>to do lists</h3>
                                                     {card.checklists.map((item, index) => (
+                                                        
                                                         <li key={index}>
-                                                            <input
-                                                                type="checkbox"
-                                                                checked={item.checked}
-                                                                readOnly
-                                                            />
-                                                            {item.text}
+                                                            <label class="checkbox-container">
+                                                                <input class="custom-checkbox" checked={item.checked} readOnly type="checkbox" />
+                                                                <span class="checkmark"></span>
+                                                                {item.text}
+                                                            </label>
                                                         </li>
                                                     ))}
                                                 </ul>

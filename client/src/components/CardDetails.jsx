@@ -178,12 +178,11 @@ const CardDetails = () => {
             <ul>
               {checklists && checklists.map((item, index) => (
                 <li key={index}>
-                  <input
-                    type="checkbox"
-                    checked={item.checked}
-                    onChange={() => handleToggleItem(index)}
-                  />
+                <label class="checkbox-container">
+                  <input class="custom-checkbox" checked={item.checked} onChange={() => handleToggleItem(index)} type="checkbox" />
+                  <span class="checkmark"></span>
                   {item.text}
+                </label>
                   <button className='remove' onClick={() => handleRemoveItem(index)}>
                     <i className="uil uil-times"></i>
                   </button>

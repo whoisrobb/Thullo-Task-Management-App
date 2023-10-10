@@ -49,6 +49,16 @@ button {
   padding: 1rem;
   width: 20%;
 }
+.sidebar button.toggle-sidebar {
+  border: none;
+  font-size: 1.1rem;
+  margin: 0;
+  padding: 3px 5px;
+  background: #202020;
+  position: absolute;
+  top: 5rem;
+  left: 101%;
+}
 .sidebar a {
   color: #9B9B9B;
 }
@@ -407,6 +417,12 @@ button.toggle-modal .uil {
   left: 100%;
   width: 100%;
 }
+.modal-toggle button {
+  border: none;
+  width: 100%;
+  font-family: "Nunito Sans";
+  padding: 0.5rem;
+}
 
 button.submit {
   width: 100%;
@@ -416,4 +432,181 @@ button.submit {
   font-size: 1rem;
   background: #9B9B9B;
   border: none;
-}/*# sourceMappingURL=App.css.map */
+}
+
+.checkbox-container {
+  display: inline-block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.custom-checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 7px;
+  top: 3px;
+  width: 3px;
+  height: 6px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.custom-checkbox:checked ~ .checkmark {
+  background-color: #2196F3;
+  box-shadow: 0 3px 7px rgba(33, 150, 243, 0.3);
+}
+
+.custom-checkbox:checked ~ .checkmark:after {
+  display: block;
+}
+
+@keyframes checkAnim {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 10px;
+  }
+}
+.custom-checkbox:checked ~ .checkmark:after {
+  animation: checkAnim 0.2s forwards;
+}
+
+#login .wrapper, #register .wrapper {
+  display: flex;
+  justify-content: center;
+}
+#login .form-container, #register .form-container {
+  width: 320px;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  color: rgb(243, 244, 246);
+}
+#login .title, #register .title {
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+}
+#login .form, #register .form {
+  margin-top: 1.5rem;
+}
+#login .input-group, #register .input-group {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+#login .input-group label, #register .input-group label {
+  display: block;
+  color: rgb(156, 163, 175);
+  margin-bottom: 4px;
+}
+#login .input-group input, #register .input-group input {
+  width: 100%;
+  border-radius: 0.375rem;
+  border: 1px solid rgb(55, 65, 81);
+  outline: 0;
+  background-color: rgb(17, 24, 39);
+  padding: 0.75rem 1rem;
+  color: rgb(243, 244, 246);
+}
+#login .input-group input:focus, #register .input-group input:focus {
+  border-color: rgb(167, 139, 250);
+}
+#login .forgot, #register .forgot {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgb(156, 163, 175);
+  margin: 8px 0 14px 0;
+}
+#login .forgot a, #login .signup a, #register .forgot a, #register .signup a {
+  color: rgb(243, 244, 246);
+  text-decoration: none;
+  font-size: 14px;
+}
+#login .forgot a:hover, #login .signup a:hover, #register .forgot a:hover, #register .signup a:hover {
+  -webkit-text-decoration: underline rgb(167, 139, 250);
+          text-decoration: underline rgb(167, 139, 250);
+}
+#login .sign, #register .sign {
+  display: block;
+  width: 100%;
+  background-color: rgb(167, 139, 250);
+  padding: 0.75rem;
+  text-align: center;
+  color: rgb(17, 24, 39);
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 600;
+}
+#login .social-message, #register .social-message {
+  display: flex;
+  align-items: center;
+  padding-top: 1rem;
+}
+#login .line, #register .line {
+  height: 1px;
+  flex: 1 1 0%;
+  background-color: rgb(55, 65, 81);
+}
+#login .social-message .message, #register .social-message .message {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(156, 163, 175);
+}
+#login .social-icons, #register .social-icons {
+  display: flex;
+  justify-content: center;
+}
+#login .social-icons .icon, #register .social-icons .icon {
+  border-radius: 0.125rem;
+  padding: 0.75rem;
+  border: none;
+  background-color: transparent;
+  margin-left: 8px;
+}
+#login .social-icons .icon svg, #register .social-icons .icon svg {
+  height: 1.25rem;
+  width: 1.25rem;
+  fill: #fff;
+}
+#login .signup, #register .signup {
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgb(156, 163, 175);
+}
+
+/* MOBILE RESPONSIVENESS *//*# sourceMappingURL=App.css.map */
