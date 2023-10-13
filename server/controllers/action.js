@@ -177,3 +177,40 @@ export const putCard = async (req, res) => {
         res.status(500).json({ message: err.message })
     }
 }
+
+
+/* SEARCH FUNCTIONALITY */
+export const search = async (req, res) => {
+    const searchTerm = req.query.q // The search query parameter
+
+    try {
+        // Search for boards, cards, and lists that match the search term
+        const results = {
+            boards: await Board.find({
+                $or: [
+                        { title: { $regex: searchTerm, $options: 'i' } }, // Board title search
+                        { description: { $regex: searchTerm, $options: 'i' } }, // Board description search
+                ],
+                },
+                '_id title description' // Project only _id, title, and description fields
+            ),
+            cards: await Card.find({
+                $or: [
+                        { title: { $regex: searchTerm, $options: 'i' } }, // Card title search
+                        { description: { $regex: searchTerm, $options: 'i' } }, // Card description search
+                ],
+                },
+                '_id title description' // Project only _id, title, and description fields
+            ),
+            lists: await List.find({
+                title: { $regex: searchTerm, $options: 'i' }, // List title search
+                },
+                '_id title' // Project only _id and title fields
+            ),
+        }
+    
+        res.json(results);
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+}

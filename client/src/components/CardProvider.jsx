@@ -17,6 +17,7 @@ const CardProvider = ({ children }) => {
     // let access
 
     const [toggle, setToggle] = useState(false)
+    const [toggleSidebar, setToggleSidebar] = useState(false)
 
     useEffect(() => {
         const token = localStorage.getItem('accessToken')
@@ -36,12 +37,16 @@ const CardProvider = ({ children }) => {
         setToggle(prevToggle => !prevToggle)
     }
 
+    const toggleBar = () => {
+        setToggleSidebar(prevToggle => !prevToggle)
+    }
+
     const setToCard = (cardId) => {
         setCardItem(cardId)
     }
 
   return (
-    <CardContext.Provider value={{ access, cardItem, toggle, toggleCard, setToCard }}>
+    <CardContext.Provider value={{ access, cardItem, toggle, toggleSidebar, toggleCard, toggleBar, setToCard }}>
         { children }
     </CardContext.Provider>
   )

@@ -5,10 +5,9 @@ import jwtDecode from 'jwt-decode'
 import { useCard } from './CardProvider'
 
 const Sidebar = ({ userId }) => {
-    const { access } = useCard()
+    const { access, toggleSidebar } = useCard()
     const navigate = useNavigate()
 
-    const [sidebar, setSidebar] = useState(true)
     const [modal, setModal] = useState(false)
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
@@ -82,11 +81,15 @@ const Sidebar = ({ userId }) => {
 
   return (
     <div className='sidebar'
-        style={sidebar ? { transform: 'scaleX(1)' } : { transform: 'scaleX(0)' }}
+        style={
+            toggleSidebar ?
+            // { transform: 'scaleX(1)' }
+            { display: 'block' }
+            :
+            // { transform: 'scaleX(0)' }
+            { display : 'none' }
+        }
     >
-        <button onClick={() => setSidebar(value => !value)} className='toggle-sidebar'>
-            <i className="uil uil-angle-right"></i>
-        </button>
         <Link to={'/'} className='workspace'>
             <span>R</span>
             <div>
@@ -120,7 +123,7 @@ const Sidebar = ({ userId }) => {
                     style={modal ? { display: 'block' } :  { display: 'none' }}
                     className="create-board"
                 >
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} style={{ zIndex: '99999' }}>
                         <p className='header'>create board</p>
                         <p>Input board title</p>
                         <input

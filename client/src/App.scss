@@ -6,7 +6,8 @@ $black: #191919;
 $dark: #202020;
 $light: #9B9B9B;
 $white: #D9D9D9;
-$accent: #579dff;
+// $accent: #579dff;
+$accent: rgba(167, 139, 250, 1);
 
 body {
     box-sizing: border-box;
@@ -22,6 +23,7 @@ body {
 
 #app {
     display: flex;
+    position: relative;
 }
 
 
@@ -52,25 +54,57 @@ ul {
     // font-size: 1.2rem;
 }
 
+
 button {
     cursor: pointer;
 }
 
 
-.sidebar {
-    // position: relative;
+button.toggle-sidebar {
+    border: none;
+    font-size: 1.1rem;
+    margin: 0;
+    padding: 3px 5px;
+    background: $dark;
+    position: fixed;
+    top: 6rem;
+    z-index: 10000;
+    // left: -100%;
+}
 
-    button.toggle-sidebar {
-        border: none;
-        font-size: 1.1rem;
-        margin: 0;
-        padding: 3px 5px;
-        background: $dark;
+
+.header {
+    height: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+
+    .search-results {
         position: absolute;
-        top: 5rem;
-        left: 101%;
+        top: 2rem;
+        left: 0;
+        right: -2rem;
+        z-index: 9999;
+        // background: red;
+        
+        button {
+            border: none;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba($light, .2);
+            background: $dark;
+            color: $light;
+            font-family: $sans;
+            text-align: left;
+        } 
     }
+}
 
+
+.sidebar {
+    width: 15rem;
+    position: relative;
     background: $dark;
     height: 100vh;
     padding: 1rem;
@@ -130,7 +164,8 @@ button {
                 position: absolute;
                 padding: 1rem;
                 min-width: 10rem;
-                background: rgba($light, .2);
+                // background: rgba($light, .2);
+                background: white;
                 left: calc(100% + 1rem);
                 z-index: 1000;
 
@@ -142,6 +177,7 @@ button {
                 p {
                     text-transform: capitalize;
                     font-size: .9rem;
+                    color: $dark;
                 }
 
                 p.NB {
@@ -179,6 +215,7 @@ button {
                     border: none;
                     text-transform: capitalize;
                     font-weight: 700;
+                    color: white;
                 }
             }
         }
@@ -214,7 +251,8 @@ button {
 
 #workspace {
     padding: 2rem;
-    width: 80%;
+    width: 100%;
+    position: relative;
 
     .boards {
         display: flex;
@@ -226,7 +264,8 @@ button {
                 color: white;
                 height: 5rem;
                 width: 12rem;
-                background: rgb(114, 123, 249);
+                background: $accent;
+                // background: rgb(114, 123, 249);
                 padding: .5rem 1rem;
             }
         }
@@ -236,9 +275,10 @@ button {
 
 #boards {
     padding: 2rem;
-    width: 80%;
+    width: 100%;
     height: 100vh;
     overflow-y: scroll;
+    position: relative;
     
     &::-webkit-scrollbar {
         display: none;
@@ -247,11 +287,12 @@ button {
     .bar {
         padding: 0.5rem 0;
         position: fixed;
-        top: 0;
-        height: 4rem;
+        top: 3rem;
+        height: 2rem;
         width: 100%;
         background: $black;
-        z-index: 9999;
+        // background: $accent;
+        z-index: 999;
         display: flex;
         align-items: center;
     }
@@ -259,12 +300,13 @@ button {
     .actions {
         padding: 5rem 2rem 1rem 0;
         position: relative;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        display: flex;
+        overflow-x: scroll;
         gap: 1rem;
         min-height: 100%;
 
         .list {
+            min-width: 20rem;
 
             .list-header {
                 padding: 0.5rem;
@@ -299,8 +341,10 @@ button {
 
                     input {
                         background: $dark;
-                        width: 15rem;
+                        // width: 15rem;
+                        width: 100%;
                         margin: 0;
+                        padding: 0;
                         border: 2px solid $light;
                         color: $white;
                         font-family: $sans;
@@ -340,6 +384,7 @@ button {
 
                     .content {
                         margin: 0.5rem 0;
+                        font-size: .9rem;
                     }
                 }
             }
@@ -353,8 +398,8 @@ button {
     background: $dark;
     top: 0;
     bottom: 0;
-    right: -2rem;
-    left: 50%;
+    right: 0;
+    left: 60%;
     transition: 200ms ease-in-out;
     transform-origin: right;
     padding: 2rem 1rem;
@@ -610,7 +655,8 @@ button.submit {
     }
 
     .form-container {
-        width: 320px;
+        width: 100%;
+        // width: 320px;
         border-radius: 0.75rem;
         // background-color: rgba(17, 24, 39, 1);
         padding: 2rem;
@@ -646,7 +692,8 @@ button.submit {
         border: 1px solid rgba(55, 65, 81, 1);
         outline: 0;
         background-color: rgba(17, 24, 39, 1);
-        padding: 0.75rem 1rem;
+        padding: 0.75rem 0;
+        margin: 0;
         color: rgba(243, 244, 246, 1);
       }
       
@@ -677,6 +724,7 @@ button.submit {
         display: block;
         width: 100%;
         background-color: rgba(167, 139, 250, 1);
+        margin: 1rem 0;
         padding: 0.75rem;
         text-align: center;
         color: rgba(17, 24, 39, 1);
@@ -733,5 +781,75 @@ button.submit {
       
 }
 
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 16.5rem;
+    text-align: center;
+    position: relative;
+  }
+  
+  .search__input {
+    font-family: inherit;
+    font-size: inherit;
+    // background-color: #f4f2f2;
+    background-color: rgba($light, .1);
+    border: none;
+    // color: #646464;
+    color: $light;
+    padding: 0.3rem 1rem;
+    // padding: 0.3rem 0;
+    border-radius: 10px;
+    width: 100%;
+    transition: all ease-in-out .5s;
+    margin-right: -2rem;
+    // transform-origin: right;
+  }
+  
+  .search__input:hover, .search__input:focus {
+    box-shadow: 0 0 1em #00000013;
+  }
+  
+  .search__input:focus {
+    outline: none;
+  }
+  
+  .search__input::-webkit-input-placeholder {
+    font-weight: 100;
+    color: $light;
+  }
+  
+  .search__button {
+    border: none;
+    background-color: $accent;
+    padding: 0.4rem 0.55rem;
+    border-radius: 50%;
+  }
+  
+  .search__icon {
+    height: 1.3em;
+    width: 1.3em;
+    // fill: #b4b4b4;
+    fill: white;
+  }
+
 
 /* MOBILE RESPONSIVENESS */
+/* Media Query for Mobile Phones */
+@media screen and (max-width: 480px) {
+
+    
+    .sidebar {
+        width: 80%;
+    }
+    
+    .card-details {
+        left: 0;
+    }
+}
+
+/* Media Query for Tablets */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    /* Add your tablet-specific styles here */
+}

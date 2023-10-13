@@ -1,7 +1,11 @@
 import express from 'express'
-import { createBoard, createCard, createList, getBoards, getCards, getLists, getSingleBoard, deleteSingleBoard, patchCard, putCard, deleteCard, deleteList } from '../controllers/action.js'
+import { createBoard, createCard, createList, getBoards, getCards, getLists, getSingleBoard, deleteSingleBoard, patchCard, putCard, deleteCard, deleteList, search } from '../controllers/action.js'
 
 const router = express.Router()
+
+
+/* SEARCH FUNCTIONALITY */
+router.get('/search', search)
 
 
 /* CREATE A BOARD */

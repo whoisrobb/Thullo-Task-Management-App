@@ -12,6 +12,7 @@ body {
 
 #app {
   display: flex;
+  position: relative;
 }
 
 a {
@@ -43,21 +44,49 @@ button {
   cursor: pointer;
 }
 
-.sidebar {
-  background: #202020;
-  height: 100vh;
-  padding: 1rem;
-  width: 20%;
-}
-.sidebar button.toggle-sidebar {
+button.toggle-sidebar {
   border: none;
   font-size: 1.1rem;
   margin: 0;
   padding: 3px 5px;
   background: #202020;
+  position: fixed;
+  top: 6rem;
+  z-index: 10000;
+}
+
+.header {
+  height: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+.header .search-results {
   position: absolute;
-  top: 5rem;
-  left: 101%;
+  top: 2rem;
+  left: 0;
+  right: -2rem;
+  z-index: 9999;
+}
+.header .search-results button {
+  border: none;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(155, 155, 155, 0.2);
+  background: #202020;
+  color: #9B9B9B;
+  font-family: "Nunito Sans";
+  text-align: left;
+}
+
+.sidebar {
+  width: 15rem;
+  position: relative;
+  background: #202020;
+  height: 100vh;
+  padding: 1rem;
+  width: 20%;
 }
 .sidebar a {
   color: #9B9B9B;
@@ -106,7 +135,7 @@ button {
   position: absolute;
   padding: 1rem;
   min-width: 10rem;
-  background: rgba(155, 155, 155, 0.2);
+  background: white;
   left: calc(100% + 1rem);
   z-index: 1000;
 }
@@ -117,6 +146,7 @@ button {
 .sidebar .boards .actions .create-board p {
   text-transform: capitalize;
   font-size: 0.9rem;
+  color: #202020;
 }
 .sidebar .boards .actions .create-board p.NB {
   margin-bottom: 1rem;
@@ -132,7 +162,7 @@ button {
   margin: 0.5rem 0;
 }
 .sidebar .boards .actions .create-board input:valid {
-  border: 2px solid #579dff;
+  border: 2px solid rgb(167, 139, 250);
 }
 .sidebar .boards .actions .create-board input::-moz-placeholder {
   font-family: "Nunito Sans";
@@ -149,10 +179,11 @@ button {
   padding: 0.5rem 0;
   margin: 0.5rem 0;
   font-family: "Nunito Sans";
-  background: #579dff;
+  background: rgb(167, 139, 250);
   border: none;
   text-transform: capitalize;
   font-weight: 700;
+  color: white;
 }
 .sidebar .boards .board-links nav.board-links-list {
   padding: 0;
@@ -176,7 +207,8 @@ button {
 
 #workspace {
   padding: 2rem;
-  width: 80%;
+  width: 100%;
+  position: relative;
 }
 #workspace .boards {
   display: flex;
@@ -186,15 +218,16 @@ button {
   color: white;
   height: 5rem;
   width: 12rem;
-  background: rgb(114, 123, 249);
+  background: rgb(167, 139, 250);
   padding: 0.5rem 1rem;
 }
 
 #boards {
   padding: 2rem;
-  width: 80%;
+  width: 100%;
   height: 100vh;
   overflow-y: scroll;
+  position: relative;
 }
 #boards::-webkit-scrollbar {
   display: none;
@@ -202,21 +235,24 @@ button {
 #boards .bar {
   padding: 0.5rem 0;
   position: fixed;
-  top: 0;
-  height: 4rem;
+  top: 3rem;
+  height: 2rem;
   width: 100%;
   background: #191919;
-  z-index: 9999;
+  z-index: 999;
   display: flex;
   align-items: center;
 }
 #boards .actions {
   padding: 5rem 2rem 1rem 0;
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  display: flex;
+  overflow-x: scroll;
   gap: 1rem;
   min-height: 100%;
+}
+#boards .actions .list {
+  min-width: 20rem;
 }
 #boards .actions .list .list-header {
   padding: 0.5rem;
@@ -245,8 +281,9 @@ button {
 }
 #boards .actions .list .list-header form input {
   background: #202020;
-  width: 15rem;
+  width: 100%;
   margin: 0;
+  padding: 0;
   border: 2px solid #9B9B9B;
   color: #D9D9D9;
   font-family: "Nunito Sans";
@@ -255,7 +292,7 @@ button {
 #boards .actions .list .list-header form button {
   padding: 0.2rem 0.8rem;
   font-family: "Nunito Sans";
-  background: #579dff;
+  background: rgb(167, 139, 250);
   border: none;
   text-transform: capitalize;
   font-weight: 700;
@@ -277,6 +314,7 @@ button {
 }
 #boards .actions .list .cards .card .content {
   margin: 0.5rem 0;
+  font-size: 0.9rem;
 }
 
 .card-details {
@@ -284,8 +322,8 @@ button {
   background: #202020;
   top: 0;
   bottom: 0;
-  right: -2rem;
-  left: 50%;
+  right: 0;
+  left: 60%;
   transition: 200ms ease-in-out;
   transform-origin: right;
   padding: 2rem 1rem;
@@ -334,7 +372,7 @@ button {
   text-transform: capitalize;
   padding: 0.3rem 1rem;
   font-family: "Nunito Sans";
-  background: #579dff;
+  background: rgb(167, 139, 250);
 }
 .card-details .labels input[type=text], .card-details .checklists input[type=text] {
   border: 1px solid #9B9B9B;
@@ -505,7 +543,7 @@ button.submit {
   justify-content: center;
 }
 #login .form-container, #register .form-container {
-  width: 320px;
+  width: 100%;
   border-radius: 0.75rem;
   padding: 2rem;
   color: rgb(243, 244, 246);
@@ -535,7 +573,8 @@ button.submit {
   border: 1px solid rgb(55, 65, 81);
   outline: 0;
   background-color: rgb(17, 24, 39);
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 0;
+  margin: 0;
   color: rgb(243, 244, 246);
 }
 #login .input-group input:focus, #register .input-group input:focus {
@@ -562,6 +601,7 @@ button.submit {
   display: block;
   width: 100%;
   background-color: rgb(167, 139, 250);
+  margin: 1rem 0;
   padding: 0.75rem;
   text-align: center;
   color: rgb(17, 24, 39);
@@ -609,4 +649,65 @@ button.submit {
   color: rgb(156, 163, 175);
 }
 
-/* MOBILE RESPONSIVENESS *//*# sourceMappingURL=App.css.map */
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 16.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.search__input {
+  font-family: inherit;
+  font-size: inherit;
+  background-color: rgba(155, 155, 155, 0.1);
+  border: none;
+  color: #9B9B9B;
+  padding: 0.3rem 1rem;
+  border-radius: 10px;
+  width: 100%;
+  transition: all ease-in-out 0.5s;
+  margin-right: -2rem;
+}
+
+.search__input:hover, .search__input:focus {
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.0745098039);
+}
+
+.search__input:focus {
+  outline: none;
+}
+
+.search__input::-webkit-input-placeholder {
+  font-weight: 100;
+  color: #9B9B9B;
+}
+
+.search__button {
+  border: none;
+  background-color: rgb(167, 139, 250);
+  padding: 0.4rem 0.55rem;
+  border-radius: 50%;
+}
+
+.search__icon {
+  height: 1.3em;
+  width: 1.3em;
+  fill: white;
+}
+
+/* MOBILE RESPONSIVENESS */
+/* Media Query for Mobile Phones */
+@media screen and (max-width: 480px) {
+  .sidebar {
+    width: 80%;
+  }
+  .card-details {
+    left: 0;
+  }
+}
+/* Media Query for Tablets */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  /* Add your tablet-specific styles here */
+}/*# sourceMappingURL=App.css.map */

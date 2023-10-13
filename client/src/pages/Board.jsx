@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { serverUrl } from '../utils/urls'
 import CardDetails from '../components/CardDetails'
 import { useCard } from '../components/CardProvider'
+import Button from '../components/Button'
 
 const Board = () => {
     const { setToCard, toggleCard } = useCard()
@@ -139,7 +140,8 @@ const Board = () => {
     }
 
   return (
-    <section id='boards' onClick={() => {() => setCardMenu({}); () => setCardModals({}); console.log(cardMenu)}}>
+    <section id='boards'>
+        <Button />
         <div className="bar">
             {board && <h1>{board.title}</h1>}
         </div>
@@ -221,14 +223,6 @@ const Board = () => {
                                                 >
                                                     <i className="uil uil-ellipsis-v"></i>
                                                 </button>
-                                                {/* <button
-                                                    className="toggle-modal"
-                                                    onClick={() => {
-                                                        setOpenModalId(card._id); // Set the ID of the open modal
-                                                    }}
-                                                >
-                                                    <i className="uil uil-ellipsis-v"></i>
-                                                </button> */}
                                                 
                                                 {cardModals[card._id] && (
                                                     <>
@@ -271,9 +265,9 @@ const Board = () => {
                                                     {card.checklists.map((item, index) => (
                                                         
                                                         <li key={index}>
-                                                            <label class="checkbox-container">
-                                                                <input class="custom-checkbox" checked={item.checked} readOnly type="checkbox" />
-                                                                <span class="checkmark"></span>
+                                                            <label className="checkbox-container">
+                                                                <input className="custom-checkbox" checked={item.checked} readOnly type="checkbox" />
+                                                                <span className="checkmark"></span>
                                                                 {item.text}
                                                             </label>
                                                         </li>
@@ -308,8 +302,7 @@ const Board = () => {
                     }
                 </div>
             </div>
-            {/* <button onClick={toggleCard}>toggle</button> */}
-            <CardDetails />
+            {/* <CardDetails /> */}
         </div>
     </section>
   )

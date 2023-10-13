@@ -14,14 +14,6 @@ const listSchema = new mongoose.Schema({
         ref: 'Card',
       },
     ],
-    // created_at: {
-    //     type: Date,
-    //     default: Date.now
-    // },
-    // updated_at: {
-    //     type: Date,
-    //     default: Date.now
-    // }
   }, { timestamps: true })
   
 const List = mongoose.model('List', listSchema)

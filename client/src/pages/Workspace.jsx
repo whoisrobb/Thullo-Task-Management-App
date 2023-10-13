@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { serverUrl } from '../utils/urls'
 import jwtDecode from 'jwt-decode'
 import { Link } from 'react-router-dom'
+import Button from '../components/Button'
 
 const Workspace = () => {
     const [boards, setBoards] = useState(null)
@@ -28,7 +29,7 @@ const Workspace = () => {
 
   return (
     <section id='workspace'>
-        
+        <Button />
         <div className="boards">
             {boards && 
                     boards.map((board) => (
