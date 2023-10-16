@@ -14,7 +14,6 @@ const Login = () => {
     const navigate = useNavigate()
 
     const formData = { value, password }
-    console.log(formData)
 
     const handleSubmit = async (e) => {
         e.preventDefault()

@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { serverUrl } from '../utils/urls'
 import DOMPurify from 'dompurify'
+import { useCard } from './CardProvider'
 
 const Header = () => {
+    const { setToCard, toggleCard, access } = useCard()
+
+    const navigate = useNavigate()
+
     const [searchTerm, setSearchTerm] = useState('')
     const [searchResults, setSearchResults] = useState([])
+    const [profileModal, setProfileModal] = useState(false)
 
     useEffect(() => {
         console.log(searchTerm)
         searchFunctionality(searchTerm)
     }, [searchTerm])
-        console.log(searchResults)
 
     const searchFunctionality = async (query) => {
         try {
@@ -36,12 +41,23 @@ const Header = () => {
       
         const truncatedText = words.slice(0, maxWords).join(' ') + '...';
         return truncatedText;
-      };
+      }
+
+      const getCard = async (cardId) => {
+        try {
+            const response = await fetch(`${serverUrl}/board/cards/${cardId}`)
+            const data = await response.json()
+            setToCard(data)
+            setSearchTerm('')
+        } catch (err) {
+            console.error(err)
+        }
+      }
 
   return (
     <div className='header'>
         <div className="logo">
-            <Link to={`/`}>Thullo</Link>
+            <Link to={`/`}>Thullo Task Management</Link>
         </div>
         <div className="search">
             <input 
@@ -76,7 +92,7 @@ const Header = () => {
                         searchResults.cards.map((result, index) => (
                             <>
                                 {result.title != '' ?
-                                    <button key={result._id}>
+                                    <button key={result._id} onClick={() => {getCard(result._id); toggleCard()}}>
                                         <h3>{result.title}</h3>
                                         <p>Cards</p>
                                     </button>
@@ -114,8 +130,22 @@ const Header = () => {
                 null
             }
         </div>
-        <div className="profile">
-            <p>muchiri</p>
+        <div onMouseLeave={() => setProfileModal(false)} className="profile">
+            {access &&
+                <button onClick={() => setProfileModal(value => !value)} className='set-modal'>
+                    {access.initials}
+                </button>
+            }
+            {profileModal &&
+                <div style={{ position: 'absolute' }} className="profile-toggle">
+                    <h4>{access.firstName} {access.lastName}</h4>
+                    <p>{access.email}</p>
+                    <hr/>
+                    <button onClick={() => navigate('/login')} className="logout">
+                        Log out
+                    </button>
+                </div>
+            }
         </div>
     </div>
   )

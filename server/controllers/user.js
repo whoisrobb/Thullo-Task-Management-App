@@ -3,6 +3,16 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 
+// Extract the first letter of each string and convert to uppercase
+function getInitials(firstName, lastName) {
+    const firstInitial = firstName.charAt(0).toUpperCase()
+    const lastInitial = lastName.charAt(0).toUpperCase()
+  
+    // Combine the initials and return them
+    const initials = firstInitial + lastInitial;
+    return initials
+}
+
 /* REGISTER A USER */
 export const register = async (req, res) => {
     try {
@@ -13,11 +23,17 @@ export const register = async (req, res) => {
 
         const user = new User({  firstName, lastName, username, email, password: hashedPassword })
         const savedUser = await user.save()
+        
+        const initials = getInitials(firstName, lastName)
 
         const token = jwt.sign(
             {
                 id: user._id,
-                username: user.username
+                username: user.username,
+                firstName : user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                initials
             },
             process.env.JWT_SECRET
         )
@@ -46,10 +62,16 @@ export const loginUser = async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials!' })
         }
 
+        const initials = getInitials(user.firstName, user.lastName)
+
         const token = jwt.sign(
             {
                 id: user._id,
-                username: user.username
+                username: user.username,
+                firstName : user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                initials
             },
             process.env.JWT_SECRET
         )

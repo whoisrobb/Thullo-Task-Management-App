@@ -60,7 +60,11 @@ button.toggle-sidebar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1rem;
+  padding: 0 2rem;
+}
+.header .logo a {
+  color: #D9D9D9;
+  font-weight: 700;
 }
 .header .search-results {
   position: absolute;
@@ -78,6 +82,32 @@ button.toggle-sidebar {
   color: #9B9B9B;
   font-family: "Nunito Sans";
   text-align: left;
+}
+.header .profile {
+  position: relative;
+}
+.header .profile p, .header .profile h4 {
+  color: #191919;
+}
+.header .profile button.set-modal {
+  font-family: "Nunito Sans";
+  border: none;
+  padding: 0;
+  height: 2rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+.header .profile .profile-toggle {
+  position: absolute;
+  z-index: 9999;
+  right: 0;
+  padding: 1rem;
+  background: white;
+}
+.header .profile button.logout {
+  font-family: "Nunito Sans";
+  border: none;
+  padding: 0.3rem 0.5rem;
 }
 
 .sidebar {
@@ -543,7 +573,7 @@ button.submit {
   justify-content: center;
 }
 #login .form-container, #register .form-container {
-  width: 100%;
+  width: 320px;
   border-radius: 0.75rem;
   padding: 2rem;
   color: rgb(243, 244, 246);

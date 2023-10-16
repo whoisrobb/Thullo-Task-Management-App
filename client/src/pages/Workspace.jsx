@@ -21,7 +21,6 @@ const Workspace = () => {
             const response = await fetch(`${serverUrl}/board/all/${id}`)
             const data = await response.json()
             setBoards(data)
-            console.log(data)
         } catch (err) {
             console.error(err)
         }
