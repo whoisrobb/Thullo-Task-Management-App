@@ -14,7 +14,13 @@ const app = express()
 
 dotenv.config()
 
-app.use(cors())
+// app.use(cors())
+app.use(
+    cors({
+      origin: 'https://thullo-task-management-app-r4s1.vercel.app', // Replace with your client's URL
+    })
+)
+  
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 app.use('/uploads', express.static(__dirname + '/uploads'))
