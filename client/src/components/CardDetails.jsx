@@ -43,8 +43,7 @@ const CardDetails = () => {
         body: JSON.stringify({ title, description: content, checklists, labels })
       })
       const data = await response.json()
-      // setCardData(data)
-      console.log(data)
+      toggleCard()
     } catch (err) {
       console.error(err)
     }
@@ -206,7 +205,7 @@ const CardDetails = () => {
           </div>
           
         <form
-          onSubmit={handleSubmit}
+          onSubmit={(e) => {e.preventDefault(); handleSubmit()}}
         >
           {/* <button onClick={handleSubmit} className='done'>done</button> */}
           <button type='submit' className='submit'>save changes</button>

@@ -37,7 +37,7 @@ h1, h2, h3, h4, h5, h6, p {
     padding: 0;
 }
 
-ul {
+ol, ul {
     padding: 0;
     margin: .5rem 0;
 
@@ -422,6 +422,22 @@ button.toggle-sidebar {
                     .content {
                         margin: 0.5rem 0;
                         font-size: .9rem;
+
+                        ul {
+                            margin: .5rem 1rem;
+
+                            li {
+                                list-style: disc;
+                            }
+                        }
+                    
+                        ol {
+                            margin: .5rem 1rem;
+                            
+                            li {
+                                list-style: decimal;
+                            }
+                        }
                     }
                 }
             }
@@ -434,7 +450,7 @@ button.toggle-sidebar {
     position: absolute;
     background: $dark;
     top: 0;
-    bottom: 0;
+    bottom: 4rem;
     right: 0;
     left: 60%;
     transition: 200ms ease-in-out;
@@ -442,6 +458,22 @@ button.toggle-sidebar {
     padding: 2rem 1rem;
     overflow: scroll;
     z-index: 10000;
+
+    ul {
+        margin: .5rem 1rem;
+
+        li {
+            list-style: disc;
+        }
+    }
+
+    ol {
+        margin: .5rem 1rem;
+
+        li {
+            list-style: decimal;
+        }
+    }
 
     h3, .uil {
         color: $white;

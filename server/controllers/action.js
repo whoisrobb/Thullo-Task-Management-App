@@ -173,7 +173,7 @@ export const putCard = async (req, res) => {
         }
 
         res.status(201).json(updatedCard)
-    } catch (error) {
+    } catch (err) {
         res.status(500).json({ message: err.message })
     }
 }

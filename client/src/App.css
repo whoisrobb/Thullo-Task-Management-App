@@ -25,11 +25,11 @@ h1, h2, h3, h4, h5, h6, p {
   padding: 0;
 }
 
-ul {
+ol, ul {
   padding: 0;
   margin: 0.5rem 0;
 }
-ul li {
+ol li, ul li {
   list-style: none;
   color: #9B9B9B;
   margin: 0 0.5rem;
@@ -346,12 +346,24 @@ button.toggle-sidebar {
   margin: 0.5rem 0;
   font-size: 0.9rem;
 }
+#boards .actions .list .cards .card .content ul {
+  margin: 0.5rem 1rem;
+}
+#boards .actions .list .cards .card .content ul li {
+  list-style: disc;
+}
+#boards .actions .list .cards .card .content ol {
+  margin: 0.5rem 1rem;
+}
+#boards .actions .list .cards .card .content ol li {
+  list-style: decimal;
+}
 
 .card-details {
   position: absolute;
   background: #202020;
   top: 0;
-  bottom: 0;
+  bottom: 4rem;
   right: 0;
   left: 60%;
   transition: 200ms ease-in-out;
@@ -359,6 +371,18 @@ button.toggle-sidebar {
   padding: 2rem 1rem;
   overflow: scroll;
   z-index: 10000;
+}
+.card-details ul {
+  margin: 0.5rem 1rem;
+}
+.card-details ul li {
+  list-style: disc;
+}
+.card-details ol {
+  margin: 0.5rem 1rem;
+}
+.card-details ol li {
+  list-style: decimal;
 }
 .card-details h3, .card-details .uil {
   color: #D9D9D9;

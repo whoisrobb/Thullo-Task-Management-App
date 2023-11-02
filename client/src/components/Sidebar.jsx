@@ -36,6 +36,15 @@ const Sidebar = ({ userId }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        
+        const access = jwtDecode(localStorage.getItem('accessToken'))
+        const accessId = access.id
+
+        if (!accessId) {
+            // Handle the case where access.id is not found in localStorage
+            console.error('Access.id not found in localStorage');
+            return
+        }
 
         const formData = { title, description, createdBy: access.id }
         console.log(formData)
@@ -51,7 +60,8 @@ const Sidebar = ({ userId }) => {
             })
             if (response.ok) {
                 const responseData = await response.json()
-                setModal(false);
+                await fetchBoards(accessId)
+                setModal(false)
                 navigate(`/workspace/boards/${responseData._id}`)
             } else {
                 console.error(response.status, response.statusText);
@@ -62,6 +72,15 @@ const Sidebar = ({ userId }) => {
     }
 
     const handleDelete = async (boardId) => {
+        const access = jwtDecode(localStorage.getItem('accessToken'))
+        const accessId = access.id
+
+        if (!accessId) {
+            // Handle the case where access.id is not found in localStorage
+            console.error('Access.id not found in localStorage');
+            return
+        }
+
         try {
             const response = await fetch(`${serverUrl}/board/${boardId}`, {
                 method: 'DELETE',
@@ -71,6 +90,7 @@ const Sidebar = ({ userId }) => {
                 throw new Error('Failed to delete post');
             }
 
+            fetchBoards(accessId)
             const res = await response.json(response)
             console.log(res)
 
@@ -83,10 +103,8 @@ const Sidebar = ({ userId }) => {
     <div className='sidebar'
         style={
             toggleSidebar ?
-            // { transform: 'scaleX(1)' }
             { display: 'block' }
             :
-            // { transform: 'scaleX(0)' }
             { display : 'none' }
         }
     >
@@ -167,7 +185,7 @@ const Sidebar = ({ userId }) => {
                                             deleteBoard ?
                                             <>
                                                 <p>Are you sure you want to delete?</p>
-                                                <form onSubmit={() => handleDelete(board._id)}>
+                                                <form onSubmit={(e) => {e.preventDefault(); handleDelete(board._id)}}>
                                                     <button type='submit'>
                                                         confirm delete
                                                     </button>

@@ -7,7 +7,7 @@ import { useCard } from '../components/CardProvider'
 import Button from '../components/Button'
 
 const Board = () => {
-    const { setToCard, toggleCard } = useCard()
+    const { toggle, setToCard, toggleCard } = useCard()
     const { boardId } = useParams()
 
     const [listTitle, setListTitle] = useState('')
@@ -24,30 +24,30 @@ const Board = () => {
     useEffect(() => {
         fetchBoard()
         fetchLists()
-    }, [boardId])
+    }, [boardId, toggle])
 
     const [openModalId, setOpenModalId] = useState(null);
 
-    // Function to close the modal
-    const closeCurrentModal = () => {
-      setOpenModalId(null);
-    };
+    // // Function to close the modal
+    // const closeCurrentModal = () => {
+    //   setOpenModalId(null);
+    // };
     
-    // Add an event listener to detect clicks outside of modals
-    useEffect(() => {
-      const handleOutsideClick = (e) => {
-        // Check if a modal is open and if the click target is outside of it
-        if (openModalId && e.target.closest('.modal-content') === null) {
-          closeCurrentModal();
-        }
-      };
+    // // Add an event listener to detect clicks outside of modals
+    // useEffect(() => {
+    //   const handleOutsideClick = (e) => {
+    //     // Check if a modal is open and if the click target is outside of it
+    //     if (openModalId && e.target.closest('.modal-content') === null) {
+    //       closeCurrentModal();
+    //     }
+    //   };
     
-      document.addEventListener('click', handleOutsideClick);
+    //   document.addEventListener('click', handleOutsideClick);
     
-      return () => {
-        document.removeEventListener('click', handleOutsideClick);
-      };
-    }, [openModalId]);
+    //   return () => {
+    //     document.removeEventListener('click', handleOutsideClick);
+    //   };
+    // }, [openModalId]);
       
 
     const fetchBoard = async () => {
@@ -73,7 +73,9 @@ const Board = () => {
 
     // console.log(lists)
 
-    const createList = async () => {
+    const createList = async (e) => {
+        e.preventDefault()
+
         try {
             const response = await fetch(`${serverUrl}/board/lists/create`, {
                 method: 'POST',
@@ -82,6 +84,12 @@ const Board = () => {
                 },
                 body: JSON.stringify({ title: listTitle, boardId })
             })
+            if (response.ok) {
+                fetchLists()
+                setCreateList(false)
+            } else {
+                console.error(response.status, response.statusText);
+            }
         } catch (err) {
             console.error(err)
         }
@@ -91,7 +99,9 @@ const Board = () => {
     //     console.log(cardMenu)
     // }, [cardMenu])
 
-    const createCard = async () => {
+    const createCard = async (e) => {
+        e.preventDefault()
+
         try {
             const response = await fetch(`${serverUrl}/board/cards/create`, {
                 method: 'POST',
@@ -100,6 +110,12 @@ const Board = () => {
                 },
                 body: JSON.stringify({ title: cardTitle, listId: cardMenu })
             })
+            if (response.ok) {
+                fetchLists()
+                setCardMenu(false)
+            } else {
+                console.error(response.status, response.statusText);
+            }
         } catch (err) {
             console.error(err)
         }
@@ -115,6 +131,7 @@ const Board = () => {
                 throw new Error('Failed to delete post');
             }
 
+            fetchLists()
             const res = await response.json(response)
             console.log(res)
         } catch (err) {
@@ -132,6 +149,7 @@ const Board = () => {
                 throw new Error('Failed to delete post');
             }
 
+            fetchLists()
             const res = await response.json(response)
             console.log(res)
         } catch (err) {
@@ -172,7 +190,7 @@ const Board = () => {
                                         <div className="modal-toggle">
                                         {
                                             deleteList ?
-                                            <form onSubmit={() => handleDeleteList(list._id)}>
+                                            <form onSubmit={(e) => {e.preventDefault(); handleDeleteList(list._id)}}>
                                                 <p>Are you sure you want to delete?</p>
                                                 <button type='submit'>
                                                     confirm delete
@@ -229,7 +247,7 @@ const Board = () => {
                                                         <div className="modal-toggle">
                                                         {
                                                             deleteCard ?
-                                                            <form onSubmit={handleDeleteCard(card._id)}>
+                                                            <form onSubmit={(e) => {e.preventDefault(); handleDeleteCard(card._id)}}>
                                                                 <p>Are you sure you want to delete?</p>
                                                                 <button type='submit'>
                                                                     confirm delete

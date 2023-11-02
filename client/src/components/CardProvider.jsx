@@ -14,8 +14,6 @@ const CardProvider = ({ children }) => {
 
     const [access, setAccess] = useState(null)
 
-    // let access
-
     const [toggle, setToggle] = useState(false)
     const [toggleSidebar, setToggleSidebar] = useState(false)
 
